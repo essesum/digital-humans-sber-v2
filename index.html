@@ -20,7 +20,6 @@
             --font-body: 'DM Sans', sans-serif;
             --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
             --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
-            /* backward-compat aliases — removed after Tasks 3-6 clean up old sections */
             --accent: #C8FF00;
             --accent-light: rgba(200,255,0,0.7);
             --accent-glow: rgba(200,255,0,0.12);
@@ -200,40 +199,6 @@
             font-weight: 700; letter-spacing: -1px; margin-bottom: 48px;
         }
 
-        /* MANIFESTO */
-        .manifesto {
-            max-width: 1400px; margin: 0 auto;
-            padding: 0 48px;
-        }
-        .manifesto-inner {
-            text-align: center;
-            padding: 56px 48px;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            max-width: 720px;
-            margin: 0 auto;
-        }
-        .manifesto-inner p {
-            font-size: 20px;
-            color: var(--text-secondary);
-            line-height: 1.85;
-            font-weight: 400;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .manifesto-inner p strong {
-            font-family: var(--font-display);
-            color: var(--text);
-            font-weight: 700;
-            font-size: 24px;
-            letter-spacing: -0.5px;
-        }
-        .manifesto-inner p em {
-            font-style: italic;
-            color: var(--text);
-            font-weight: 400;
-        }
-
         /* FEATURED VIDEO */
         .featured-wrap {
             max-width: 1400px; margin: 0 auto;
@@ -284,62 +249,6 @@
         }
         .sound-btn svg { width: 18px; height: 18px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
-        /* PILLARS */
-        .pillars {
-            max-width: 1400px; margin: 0 auto;
-            padding: 60px 48px;
-        }
-        .pillars-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-        .pillar {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 40px 32px;
-            transition: border-color 200ms var(--ease-out), transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
-            opacity: 0;
-            transform: translateY(16px);
-        }
-        .pillar.revealed {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .pillar:nth-child(1) { transition-delay: 0ms; }
-        .pillar:nth-child(2) { transition-delay: 60ms; }
-        .pillar:nth-child(3) { transition-delay: 120ms; }
-        @media (hover: hover) and (pointer: fine) {
-            .pillar:hover {
-                border-color: var(--border-accent);
-                transform: translateY(-2px);
-                box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-            }
-        }
-        .pillar-num {
-            font-family: var(--font-display);
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--accent);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 16px;
-            display: block;
-        }
-        .pillar-title {
-            font-family: var(--font-display);
-            font-size: 21px;
-            font-weight: 700;
-            letter-spacing: -0.3px;
-            margin-bottom: 12px;
-        }
-        .pillar p {
-            font-size: 15px;
-            color: var(--text-secondary);
-            line-height: 1.7;
-        }
-
         /* VIDEO GRID */
         .video-section {
             max-width: 1400px; margin: 0 auto;
@@ -385,23 +294,6 @@
             color: #fff; letter-spacing: 0.3px;
         }
 
-        /* BRIDGE QUOTE */
-        .bridge {
-            max-width: 1400px; margin: 0 auto;
-            padding: 72px 48px;
-            text-align: center;
-        }
-        .bridge p {
-            font-family: var(--font-display);
-            font-size: clamp(20px, 2.2vw, 32px);
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            line-height: 1.4;
-            max-width: 800px;
-            margin: 0 auto 48px;
-            color: var(--text);
-        }
-
         /* DEMO */
         .demo-section {
             max-width: 1400px; margin: 0 auto;
@@ -430,25 +322,6 @@
         }
         .demo-iframe { width: 100%; height: 85vh; min-height: 700px; background: #000; }
         .demo-iframe iframe { width: 100%; height: 100%; border: none; }
-
-        /* TECH */
-        .tech-row {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 1px;
-            background: var(--border);
-            border-radius: 16px; overflow: hidden;
-        }
-        .tech-item {
-            background: var(--bg-card);
-            padding: 32px 20px;
-            text-align: center;
-            transition: background 0.25s ease-out;
-        }
-        .tech-item:hover { background: var(--bg-card-hover); }
-        .tech-item svg { margin-bottom: 14px; }
-        .tech-item h4 { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
-        .tech-item p { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
 
         /* METRICS */
         .metrics-grid {
@@ -542,12 +415,10 @@
         @media (max-width: 900px) {
             nav { padding: 14px 20px; }
             .nav-links { display: none; }
-            section, .featured-wrap, .manifesto, .pillars, .video-section, .bridge, .demo-section { padding-left: 20px; padding-right: 20px; }
+            section, .featured-wrap, .video-section, .demo-section { padding-left: 20px; padding-right: 20px; }
             .hero { padding: 160px 20px 80px; }
-            .pillars-grid { grid-template-columns: 1fr; }
             .video-grid { grid-template-columns: 1fr 1fr; }
             .metrics-grid { grid-template-columns: 1fr; }
-            .tech-row { grid-template-columns: repeat(3, 1fr); }
             .demo-iframe { height: 500px; min-height: 500px; }
         }
         @media (max-width: 600px) {
@@ -560,10 +431,8 @@
 <nav>
     <div class="nav-logo">Digital Humans</div>
     <ul class="nav-links">
-        <li><a href="#pillars">Продукт</a></li>
         <li><a href="#cases">Кейсы</a></li>
         <li><a href="#demo">Live Demo</a></li>
-        <li><a href="#tech">Технология</a></li>
     </ul>
 </nav>
 
@@ -595,13 +464,6 @@
           </div>
         </section>
 
-<!-- MANIFESTO -->
-<div class="manifesto" style="position: relative; z-index: 2; margin-top: -20px;">
-    <div class="manifesto-inner">
-        <p><strong>Цифровой человек</strong> — это не функция и не фича.<br><br>Это <strong>новый способ быть рядом с клиентом</strong>: говорить его языком, отвечать в момент, когда он нужен, и оставлять ощущение — меня здесь услышали.</p>
-    </div>
-</div>
-
 <!-- FEATURED: GigaAssistant -->
 <div class="featured-wrap" style="margin-bottom: 24px; position: relative; z-index: 2;">
     <div class="featured">
@@ -611,27 +473,6 @@
             <span>ГигаПомощник — AI-ассистент</span>
         </div>
         <button class="sound-btn" onclick="toggleVideoSound(this)"><svg class="icon-muted" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg class="icon-unmuted" viewBox="0 0 24 24" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></button>
-    </div>
-</div>
-
-<!-- PILLARS -->
-<div class="pillars" id="pillars">
-    <div class="pillars-grid">
-        <div class="pillar">
-            <span class="pillar-num">01</span>
-            <div class="pillar-title">Образ</div>
-            <p>Создаём персонажа с нуля — лицо, характер, голос. Тот, кого ваши клиенты запомнят и узнают.</p>
-        </div>
-        <div class="pillar">
-            <span class="pillar-num">02</span>
-            <div class="pillar-title">Диалог</div>
-            <p>Встраиваем интеллект на ваших данных. Аватар слышит, думает и отвечает — живо, в моменте, без скриптов.</p>
-        </div>
-        <div class="pillar">
-            <span class="pillar-num">03</span>
-            <div class="pillar-title">Видео</div>
-            <p>Аватар становится спикером вашего контента. Новый оффер, новый ролик — без студии и съёмочной группы.</p>
-        </div>
     </div>
 </div>
 
@@ -682,11 +523,6 @@
             <button class="sound-btn" onclick="toggleVideoSound(this)"><svg class="icon-muted" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg class="icon-unmuted" viewBox="0 0 24 24" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></button>
         </div>
     </div>
-</div>
-
-<!-- BRIDGE -->
-<div class="bridge">
-    <p>Связь между людьми — это не метафора.<br>Это ваш следующий интерфейс.</p>
 </div>
 
 <!-- METRICS -->
@@ -749,45 +585,6 @@
     </div>
 </div>
 
-<!-- TECH -->
-<section id="tech" style="padding-top: 48px;">
-    <div class="section-label">Технология</div>
-    <h2 class="section-title">Как это работает</h2>
-    <div class="tech-row">
-        <div class="tech-item">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-            <h4>На устройстве</h4>
-            <p>CPU/GPU клиента, без серверного GPU</p>
-        </div>
-        <div class="tech-item">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-light)" stroke-width="1.5"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
-            <h4>Lip Sync</h4>
-            <p>Синхронизация губ в реальном времени</p>
-        </div>
-        <div class="tech-item">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-            <h4>По референсу</h4>
-            <p>Аватар по фото или видео</p>
-        </div>
-        <div class="tech-item">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-light)" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            <h4>Фотореализм</h4>
-            <p>Диффузионная нейросеть</p>
-        </div>
-        <div class="tech-item">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-            <h4>Браузер</h4>
-            <p>Любое устройство, без приложений</p>
-        </div>
-        <div class="tech-item">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-light)" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
-            <h4>Интерактивность</h4>
-            <p>Сцена, анимации, реакции</p>
-        </div>
-    </div>
-</section>
-
-
 <footer>Digital Humans &copy; 2026</footer>
 
 <script>
@@ -808,16 +605,6 @@
         btn.querySelector('.icon-unmuted').style.display = video.muted ? 'none' : '';
     }
 
-    // Stagger pillars on scroll
-    const pillarsObs = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-            if (e.isIntersecting) {
-                e.target.classList.add('revealed');
-                pillarsObs.unobserve(e.target);
-            }
-        });
-    }, { threshold: 0.15 });
-    document.querySelectorAll('.pillar').forEach(p => pillarsObs.observe(p));
 </script>
 
 </body>
