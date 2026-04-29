@@ -259,8 +259,6 @@
             font-weight: 700; letter-spacing: -1px; margin-bottom: 48px;
         }
 
-        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-
         /* DEMO */
         .demo-section {
             max-width: 1400px; margin: 0 auto;
@@ -431,7 +429,7 @@
 
         <!-- CASE: М.ВИДЕО -->
         <div class="case" id="cases">
-          <video autoplay muted loop playsinline>
+          <video muted loop playsinline>
             <source src="videos/mvideo-case.mp4" type="video/mp4">
           </video>
           <div class="case-overlay">
@@ -447,7 +445,7 @@
 
         <!-- CASE: ГИГАПОМОЩНИК -->
         <div class="case">
-          <video autoplay muted loop playsinline>
+          <video muted loop playsinline>
             <source src="videos/gigaassistant-demo.mp4" type="video/mp4">
           </video>
           <div class="case-overlay">
@@ -463,7 +461,7 @@
 
         <!-- CASE: СБЕРПЕРВЫЙ -->
         <div class="case">
-          <video autoplay muted loop playsinline>
+          <video muted loop playsinline>
             <source src="videos/sberperv-irina.mp4" type="video/mp4">
           </video>
           <div class="case-overlay">
@@ -552,13 +550,16 @@
     // Cinematic case overlay reveal
     const caseObs = new IntersectionObserver(entries => {
         entries.forEach(e => {
-            if (e.isIntersecting) e.target.classList.add('revealed');
+            if (e.isIntersecting) {
+                e.target.classList.add('revealed');
+                caseObs.unobserve(e.target);
+            }
         });
     }, { threshold: 0.2 });
     document.querySelectorAll('.case').forEach(c => caseObs.observe(c));
 
     function toggleVideoSound(btn) {
-        const container = btn.closest('.case, .featured, .video-cell');
+        const container = btn.closest('.case');
         const video = container.querySelector('video');
         video.muted = !video.muted;
         btn.querySelector('.icon-muted').style.display = video.muted ? '' : 'none';
