@@ -537,6 +537,18 @@
         btn.querySelector('.icon-unmuted').style.display = video.muted ? 'none' : '';
     }
 
+    // Metrics stagger reveal
+    const metricObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('.metric').forEach(m => m.classList.add('revealed'));
+          metricObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    const metricsEl = document.querySelector('.metrics');
+    if (metricsEl) metricObs.observe(metricsEl);
+
 </script>
 
 </body>
