@@ -20,6 +20,13 @@
             --font-body: 'DM Sans', sans-serif;
             --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
             --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+            /* backward-compat aliases — removed after Tasks 3-6 clean up old sections */
+            --accent: #C8FF00;
+            --accent-light: rgba(200,255,0,0.7);
+            --accent-glow: rgba(200,255,0,0.12);
+            --text-secondary: rgba(255,255,255,0.45);
+            --bg-card-hover: #161616;
+            --border-accent: rgba(200,255,0,0.10);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -140,7 +147,7 @@
         }
         @media (hover: hover) and (pointer: fine) {
             .btn-primary:hover {
-                box-shadow: 0 6px 32px rgba(94,106,210,0.4);
+                box-shadow: 0 6px 32px rgba(200,255,0,0.25);
                 background: var(--accent-light);
             }
             .btn-ghost:hover {
@@ -221,7 +228,7 @@
             padding: 10px 20px; border-radius: 100px;
             background: rgba(0,0,0,0.55);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(94,106,210,0.2);
+            border: 1px solid rgba(255,255,255,0.12);
         }
         .featured-dot {
             width: 8px; height: 8px; border-radius: 50%;
@@ -238,7 +245,7 @@
             width: 40px; height: 40px; border-radius: 50%;
             background: rgba(0,0,0,0.55);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(94,106,210,0.35);
+            border: 1px solid rgba(255,255,255,0.12);
             color: #fff; cursor: pointer;
             display: flex; align-items: center; justify-content: center;
             transition: background 150ms var(--ease-out), border-color 150ms var(--ease-out), transform 120ms var(--ease-out);
@@ -246,7 +253,7 @@
         }
         .sound-btn:active { transform: scale(0.92); }
         @media (hover: hover) and (pointer: fine) {
-            .sound-btn:hover { background: rgba(94,106,210,0.4); border-color: rgba(94,106,210,0.7); }
+            .sound-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.12); }
         }
         .sound-btn svg { width: 18px; height: 18px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
@@ -457,15 +464,15 @@
         }
         .anim-cat-btn:active { transform: scale(0.97); }
         .anim-cat-btn.active {
-            background: rgba(94,106,210,0.15);
+            background: rgba(200,255,0,0.08);
             color: var(--accent-light);
-            border-color: rgba(94,106,210,0.3);
+            border-color: rgba(200,255,0,0.25);
         }
         @media (hover: hover) and (pointer: fine) {
             .anim-cat-btn:hover {
-                background: rgba(94,106,210,0.15);
+                background: rgba(200,255,0,0.08);
                 color: var(--accent-light);
-                border-color: rgba(94,106,210,0.3);
+                border-color: rgba(200,255,0,0.25);
             }
         }
         .anim-table-wrap {
@@ -474,7 +481,7 @@
             overflow: hidden;
         }
         .anim-table-wrap table { width: 100%; border-collapse: collapse; }
-        .anim-table-wrap thead { background: rgba(94,106,210,0.06); }
+        .anim-table-wrap thead { background: rgba(255,255,255,0.04); }
         .anim-table-wrap th {
             padding: 12px 20px; font-size: 11px; font-weight: 600;
             text-transform: uppercase; letter-spacing: 1px;
