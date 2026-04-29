@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Humans — Цифровые аватары для бизнеса</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,800;1,9..144,800&family=DM+Sans:wght@400;500&display=swap');
 
         :root {
             --bg: #070707;
-            --bg-elevated: #0e0e0e;
-            --bg-card: #111111;
             --acid: #C8FF00;
             --text: #ffffff;
             --text-dim: rgba(255,255,255,0.45);
@@ -20,12 +20,6 @@
             --font-body: 'DM Sans', sans-serif;
             --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
             --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
-            --accent: #C8FF00;
-            --accent-light: rgba(200,255,0,0.7);
-            --accent-glow: rgba(200,255,0,0.12);
-            --text-secondary: rgba(255,255,255,0.45);
-            --bg-card-hover: #161616;
-            --border-accent: rgba(200,255,0,0.10);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -50,7 +44,7 @@
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
         }
-        :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+        :focus-visible { outline: 2px solid var(--acid); outline-offset: 2px; border-radius: 4px; }
 
         /* NAV */
         nav {
@@ -246,19 +240,6 @@
         .case-sound:active { transform: scale(0.94); }
         .case-sound svg { width: 14px; height: 14px; fill: #fff; }
 
-        /* SECTIONS */
-        section { padding: 80px 48px; max-width: 1400px; margin: 0 auto; }
-        .section-label {
-            font-size: 11px; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 3px;
-            color: var(--accent); margin-bottom: 16px;
-        }
-        .section-title {
-            font-family: var(--font-display);
-            font-size: clamp(28px, 3.2vw, 42px);
-            font-weight: 700; letter-spacing: -1px; margin-bottom: 48px;
-        }
-
         /* DEMO CTA */
         .demo-section {
             padding: 120px 48px;
@@ -317,57 +298,6 @@
             line-height: 1.5; font-weight: 400;
             max-width: 200px;
         }
-
-        /* ANIMATIONS */
-        .anim-categories { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 36px; }
-        .anim-cat-btn {
-            padding: 9px 20px; border-radius: 100px;
-            font-size: 13px; font-weight: 500;
-            background: var(--bg-card); color: var(--text-secondary);
-            border: 1px solid var(--border); cursor: pointer;
-            transition: background 150ms var(--ease-out), color 150ms var(--ease-out), border-color 150ms var(--ease-out), transform 120ms var(--ease-out);
-        }
-        .anim-cat-btn:active { transform: scale(0.97); }
-        .anim-cat-btn.active {
-            background: rgba(200,255,0,0.08);
-            color: var(--accent-light);
-            border-color: rgba(200,255,0,0.25);
-        }
-        @media (hover: hover) and (pointer: fine) {
-            .anim-cat-btn:hover {
-                background: rgba(200,255,0,0.08);
-                color: var(--accent-light);
-                border-color: rgba(200,255,0,0.25);
-            }
-        }
-        .anim-table-wrap {
-            background: var(--bg-card);
-            border-radius: 14px; border: 1px solid var(--border);
-            overflow: hidden;
-        }
-        .anim-table-wrap table { width: 100%; border-collapse: collapse; }
-        .anim-table-wrap thead { background: rgba(255,255,255,0.04); }
-        .anim-table-wrap th {
-            padding: 12px 20px; font-size: 11px; font-weight: 600;
-            text-transform: uppercase; letter-spacing: 1px;
-            color: var(--accent); text-align: left;
-            border-bottom: 1px solid var(--border);
-        }
-        .anim-table-wrap td {
-            padding: 12px 20px; font-size: 13px;
-            border-bottom: 1px solid var(--border); vertical-align: top;
-        }
-        .anim-table-wrap tr:last-child td { border-bottom: none; }
-        .anim-table-wrap tbody tr { transition: background 0.2s; }
-        .anim-table-wrap tbody tr:hover { background: var(--bg-card-hover); }
-        .anim-name {
-            font-weight: 600; color: var(--text);
-            font-family: 'SF Mono','Fira Code',monospace; font-size: 12px;
-        }
-        .lipsync-yes { color: var(--accent-light); font-weight: 600; }
-        .lipsync-no { color: var(--text-dim); }
-        .anim-group { display: none; }
-        .anim-group.active { display: block; }
 
 /* RESPONSIVE */
         @media (max-width: 900px) {
@@ -456,7 +386,7 @@
 
         <!-- CASE: М.ВИДЕО -->
         <div class="case" id="cases">
-          <video muted loop playsinline>
+          <video autoplay muted loop playsinline>
             <source src="videos/mvideo-case.mp4" type="video/mp4">
           </video>
           <div class="case-overlay">
@@ -472,7 +402,7 @@
 
         <!-- CASE: ГИГАПОМОЩНИК -->
         <div class="case">
-          <video muted loop playsinline>
+          <video autoplay muted loop playsinline>
             <source src="videos/gigaassistant-demo.mp4" type="video/mp4">
           </video>
           <div class="case-overlay">
@@ -488,7 +418,7 @@
 
         <!-- CASE: СБЕРПЕРВЫЙ -->
         <div class="case">
-          <video muted loop playsinline>
+          <video autoplay muted loop playsinline>
             <source src="videos/sberperv-irina.mp4" type="video/mp4">
           </video>
           <div class="case-overlay">
@@ -535,7 +465,7 @@
 
         <!-- FOOTER -->
         <footer style="padding:32px 64px;border-top:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-          <span style="font-size:12px;color:rgba(255,255,255,0.2);font-family:var(--font-body);">© 2025 Digital Humans · Sber</span>
+          <span style="font-size:12px;color:rgba(255,255,255,0.2);font-family:var(--font-body);">© 2026 Digital Humans · Sber</span>
           <span style="font-size:12px;color:rgba(255,255,255,0.15);font-family:var(--font-body);">digital-humans.sber.ru</span>
         </footer>
 
@@ -564,6 +494,7 @@
         const container = btn.closest('.case');
         const video = container.querySelector('video');
         video.muted = !video.muted;
+        if (!video.muted && video.paused) video.play();
         btn.querySelector('.icon-muted').style.display = video.muted ? '' : 'none';
         btn.querySelector('.icon-unmuted').style.display = video.muted ? 'none' : '';
     }
