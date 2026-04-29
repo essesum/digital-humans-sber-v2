@@ -1,0 +1,834 @@
+# Cinematic Redesign Implementation Plan
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** Rebuild the Digital Humans Sber landing page from a standard SaaS template into a cinematic, Runway ML–inspired experience with split-screen hero, full-bleed case sections, Fraunces display font, and #C8FF00 acid accent in micro-details only.
+
+**Architecture:** Single-file `index.html` (vanilla HTML/CSS/JS, no build system). Tasks modify this file incrementally. Each task produces a visually verifiable browser state. Videos live in `videos/` — no changes to those files.
+
+**Tech Stack:** HTML5, CSS3 (custom properties, grid, clip-path), Google Fonts (Fraunces + DM Sans), IntersectionObserver API, no JS framework.
+
+---
+
+## File Map
+
+| File | Changes |
+|------|---------|
+| `index.html` (lines 1–540) | CSS: replace vars, fonts, all section styles |
+| `index.html` (lines 541–555) | Hero: full replacement with split-screen |
+| `index.html` (lines 556–595) | Remove: manifesto + pillars blocks |
+| `index.html` (lines 596–626) | Replace: video-section → cinematic case (М.Видео) |
+| `index.html` (lines 563–574) | Replace: featured GigaAssistant → cinematic case |
+| `index.html` (lines 627–644) | Replace: СберПервый → cinematic case |
+| `index.html` (lines 645–649) | Remove: bridge section |
+| `index.html` (lines 650–667) | Update: metrics strip styling |
+| `index.html` (lines 668–709) | Update: demo CTA styling |
+| `index.html` (lines 710–end) | Remove: tech section; update JS |
+
+---
+
+## Task 1: CSS Foundation — Font, Variables, Base Styles
+
+**Files:**
+- Modify: `index.html` lines 7–52 (entire `<style>` head section, up to nav)
+
+- [ ] **Step 1: Replace the `@import` and `:root` block**
+
+Find this in `index.html` (lines 8–27):
+```css
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:...');
+:root {
+    --bg: #050506;
+    ...
+    --font-display: 'Syne', sans-serif;
+    ...
+}
+```
+
+Replace with:
+```css
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,800;1,9..144,800&family=DM+Sans:wght@400;500&display=swap');
+
+:root {
+    --bg: #070707;
+    --bg-elevated: #0e0e0e;
+    --bg-card: #111111;
+    --acid: #C8FF00;
+    --text: #ffffff;
+    --text-dim: rgba(255,255,255,0.45);
+    --text-ghost: rgba(255,255,255,0.18);
+    --border: rgba(255,255,255,0.06);
+    --font-display: 'Fraunces', serif;
+    --font-body: 'DM Sans', sans-serif;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+}
+```
+
+- [ ] **Step 2: Update nav styles** (lines 54–76)
+
+Replace the entire `/* NAV */` block with:
+```css
+/* NAV */
+nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 20px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(7,7,7,0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+    font-family: var(--font-body);
+    font-size: 13px; font-weight: 500; letter-spacing: 0.2px;
+    color: rgba(255,255,255,0.7);
+}
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+    color: rgba(255,255,255,0.35); text-decoration: none;
+    font-size: 12px; font-weight: 500; letter-spacing: 0.3px;
+    transition: color 180ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+    .nav-links a:hover { color: #fff; }
+}
+```
+
+- [ ] **Step 3: Open `index.html` in browser, verify**
+
+Open `index.html` directly in Chrome. Expected:
+- Page background is near-black `#070707`
+- Nav has no blue accent, minimal and dark
+- Font hasn't changed yet (hero still uses Syne — that's fine, we fix it in Task 2)
+
+- [ ] **Step 4: Commit**
+```bash
+cd /Users/ekaterinasum/digital-humans-sber/digital-humans-site
+git add index.html
+git commit -m "feat: update CSS vars to cinematic palette, swap to Fraunces + DM Sans"
+```
+
+---
+
+## Task 2: New Hero — Split-Screen
+
+**Files:**
+- Modify: `index.html` — replace entire hero CSS block and hero HTML
+
+- [ ] **Step 1: Replace hero CSS**
+
+Find `/* HERO */` comment (around line 78) and replace everything from `/* HERO */` through `.hero-cta { ... }` and `.btn` blocks with:
+
+```css
+/* HERO */
+.hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 60px; /* nav height */
+    overflow: hidden;
+}
+
+.hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 64px 80px 72px;
+    position: relative; z-index: 1;
+}
+
+.hero-right {
+    position: relative; overflow: hidden;
+}
+.hero-right video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+}
+.hero-right::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to right, rgba(7,7,7,0.3) 0%, transparent 40%);
+}
+
+/* eyebrow */
+.eyebrow {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 8px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--text-ghost);
+    margin-bottom: 32px;
+}
+.live-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--acid);
+    flex-shrink: 0;
+    animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+/* headline */
+.hero-headline {
+    font-family: var(--font-display);
+    font-size: clamp(52px, 5.5vw, 80px);
+    font-weight: 800;
+    line-height: 0.88;
+    letter-spacing: -3px;
+    color: #fff;
+    margin-bottom: 20px;
+}
+.hero-headline em { font-style: italic; }
+
+/* divider */
+.hero-divider {
+    width: 32px; height: 1.5px;
+    background: var(--acid); opacity: 0.8;
+    margin-bottom: 24px;
+}
+
+/* subhead */
+.hero-sub {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.75;
+    max-width: 340px;
+    margin-bottom: 40px;
+    font-weight: 400;
+}
+
+/* CTAs */
+.hero-ctas { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+
+.btn {
+    padding: 13px 28px; border-radius: 9px;
+    font-size: 13px; font-weight: 600;
+    text-decoration: none; cursor: pointer; border: none;
+    display: inline-flex; align-items: center;
+    transition: transform 160ms var(--ease-out), opacity 160ms var(--ease-out);
+    font-family: var(--font-body);
+}
+.btn:active { transform: scale(0.97); }
+
+.btn-primary {
+    background: var(--acid); color: #000;
+}
+@media (hover: hover) and (pointer: fine) {
+    .btn-primary:hover { opacity: 0.88; }
+}
+
+.btn-ghost {
+    background: transparent; color: rgba(255,255,255,0.4);
+    font-size: 13px; font-weight: 400;
+    padding: 13px 0;
+}
+@media (hover: hover) and (pointer: fine) {
+    .btn-ghost:hover { color: #fff; }
+}
+
+/* hero entrance animation */
+.hero-left { animation: heroIn 700ms var(--ease-out) both; }
+@keyframes heroIn {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+```
+
+- [ ] **Step 2: Replace hero HTML**
+
+Find `<!-- HERO -->` section in the HTML body (around line 541). Replace everything from `<!-- HERO -->` through the closing `</section>` of the hero with:
+
+```html
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="eyebrow">
+      <span class="live-dot"></span>
+      Digital Humans · Sber
+    </div>
+    <h1 class="hero-headline">
+      Интерфейс,<br>который тебя<br><em>понимает.</em>
+    </h1>
+    <div class="hero-divider"></div>
+    <p class="hero-sub">
+      Живой аватар говорит с клиентом голосом —<br>
+      слышит, адаптируется, отвечает.<br>
+      Без форм, без скрипта, 24/7.
+    </p>
+    <div class="hero-ctas">
+      <a href="#demo" class="btn btn-primary">Поговорить с аватаром</a>
+      <a href="#cases" class="btn btn-ghost">Кейсы →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <video autoplay muted loop playsinline>
+      <source src="videos/cinematic-avatar.mp4" type="video/mp4">
+    </video>
+  </div>
+</section>
+```
+
+- [ ] **Step 3: Verify in browser**
+
+Reload `index.html`. Expected:
+- Two-column hero: left = copy, right = video filling full height
+- Headline in Fraunces italic, large, tight tracking
+- Green live dot animating in eyebrow
+- Green divider line below headline
+- Black-background primary CTA button
+- Video fills right half completely
+
+- [ ] **Step 4: Commit**
+```bash
+git add index.html
+git commit -m "feat: split-screen hero with Fraunces headline and cinematic-avatar video"
+```
+
+---
+
+## Task 3: Remove Legacy Sections
+
+Remove: manifesto, pillars, bridge quote, tech stack.
+
+**Files:**
+- Modify: `index.html`
+
+- [ ] **Step 1: Remove manifesto block**
+
+Find `<!-- MANIFESTO -->` (around line 556). Delete from `<!-- MANIFESTO -->` through the closing `</div>` of the manifesto (before `<!-- FEATURED`).
+
+- [ ] **Step 2: Remove pillars block**
+
+Find `<!-- PILLARS -->` (around line 575). Delete from `<!-- PILLARS -->` through its closing `</section>` (before `<!-- VIDEO CASES -->`).
+
+- [ ] **Step 3: Remove bridge section**
+
+Find `<!-- BRIDGE -->` (around line 645). Delete from `<!-- BRIDGE -->` through its closing `</div>` or `</section>`.
+
+- [ ] **Step 4: Remove tech section**
+
+Find `<!-- TECH -->` (around line 710). Delete from `<!-- TECH -->` through its closing `</section>`.
+
+- [ ] **Step 5: Remove old CSS for deleted sections**
+
+In the `<style>` block, delete CSS rules for these classes:
+- `.manifesto`, `.manifesto-inner`
+- `.pillars`, `.pillar`, `.pillar-icon`, `.pillar-title`, `.pillar-desc`
+- `.bridge` (any bridge-related CSS)
+- Any `.tech`-prefixed classes
+
+- [ ] **Step 6: Verify in browser**
+
+Reload. Expected:
+- Page flows: Hero → (ГигаПомощник featured) → Video cases → СберПервый → Metrics → Demo
+- No manifesto paragraph
+- No three-column pillar cards
+- No bridge quote
+- No "Как это работает" tech section
+
+- [ ] **Step 7: Commit**
+```bash
+git add index.html
+git commit -m "refactor: remove manifesto, pillars, bridge, tech sections"
+```
+
+---
+
+## Task 4: Cinematic Case — М.Видео
+
+Add a new full-bleed case section before the existing ГигаПомощник section.
+
+**Files:**
+- Modify: `index.html`
+
+- [ ] **Step 1: Add cinematic case CSS**
+
+In the `<style>` block, add after the hero styles:
+
+```css
+/* CINEMATIC CASES */
+.case {
+    position: relative;
+    width: 100%;
+    height: min(58vw, 700px);
+    overflow: hidden;
+    background: #000;
+}
+.case video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.case-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(7,7,7,0.75) 0%,
+        rgba(7,7,7,0.2) 35%,
+        transparent 60%
+    );
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 40px 56px;
+}
+.case-client {
+    font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+    color: rgba(255,255,255,0.35); margin-bottom: 8px;
+    font-family: var(--font-body); font-weight: 500;
+}
+.case-title {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 3.5vw, 52px);
+    font-weight: 800; line-height: 0.9; letter-spacing: -2px;
+    color: #fff; margin-bottom: 12px;
+}
+.case-title em { font-style: italic; }
+.case-desc {
+    font-size: 13px; color: rgba(255,255,255,0.45);
+    max-width: 420px; line-height: 1.65;
+    font-weight: 400;
+}
+.case-sound {
+    position: absolute; bottom: 36px; right: 40px;
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.12);
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: background 160ms var(--ease-out), transform 160ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+    .case-sound:hover { background: rgba(255,255,255,0.15); }
+}
+.case-sound:active { transform: scale(0.94); }
+.case-sound svg { width: 14px; height: 14px; fill: #fff; }
+
+/* scroll reveal for cases */
+.case-overlay { opacity: 0; transform: translateY(16px); transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out); }
+.case.revealed .case-overlay { opacity: 1; transform: translateY(0); }
+```
+
+- [ ] **Step 2: Add М.Видео case HTML**
+
+Find `<!-- FEATURED: GigaAssistant -->` (around line 563). Insert this block **before** it:
+
+```html
+<!-- CASE: М.ВИДЕО -->
+<div class="case" id="cases">
+  <video autoplay muted loop playsinline>
+    <source src="videos/mvideo-case.mp4" type="video/mp4">
+  </video>
+  <div class="case-overlay">
+    <div class="case-client">Кейс</div>
+    <div class="case-title">М.Видео —<br><em>аватар-продавец.</em></div>
+    <p class="case-desc">Цифровой консультант отвечает на вопросы о товарах, помогает с выбором и оформляет заказ без участия живого сотрудника.</p>
+  </div>
+  <button class="case-sound" onclick="toggleVideoSound(this)" aria-label="Звук">
+    <svg class="icon-muted" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.63 3.63a.996.996 0 000 1.41L7.29 8.7 7 9H4c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1h3l3.29 3.29c.63.63 1.71.18 1.71-.71v-4.17l4.18 4.18c-.49.37-1.02.68-1.6.91-.36.15-.58.53-.58.92 0 .72.73 1.18 1.39.91.8-.31 1.55-.77 2.22-1.31l1.34 1.34a.996.996 0 101.41-1.41L5.05 3.63c-.39-.39-1.02-.39-1.42 0zM19 12c0 .82-.15 1.61-.41 2.34l1.53 1.53c.56-1.17.88-2.48.88-3.87 0-3.83-2.4-7.11-5.78-8.4-.59-.23-1.22.23-1.22.86v.19c0 .38.25.71.61.85C17.18 6.54 19 9.06 19 12zm-8.71-6.29l-.17.17L12 7.76V6.41c0-.89-1.08-1.34-1.71-.71zM16.5 12A4.5 4.5 0 0014 7.97v1.79l2.48 2.48c.01-.08.02-.16.02-.24z"/></svg>
+    <svg class="icon-unmuted" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+  </button>
+</div>
+```
+
+- [ ] **Step 3: Verify in browser**
+
+Reload. Expected:
+- Full-width video section appears before the existing GigaAssistant featured block
+- Video fills the section completely
+- Text overlay visible at bottom left
+- Sound toggle button bottom right
+
+- [ ] **Step 4: Commit**
+```bash
+git add index.html
+git commit -m "feat: add M.Video cinematic case section"
+```
+
+---
+
+## Task 5: Cinematic Case — ГигаПомощник
+
+Replace the existing `.featured-wrap` block with a cinematic case.
+
+**Files:**
+- Modify: `index.html`
+
+- [ ] **Step 1: Find and replace ГигаПомощник featured block**
+
+Find `<!-- FEATURED: GigaAssistant -->` (around line 563). Delete everything from that comment through its closing `</div>` (before `<!-- PILLARS -->`).
+
+Replace with:
+```html
+<!-- CASE: ГИГАПОМОЩНИК -->
+<div class="case">
+  <video autoplay muted loop playsinline>
+    <source src="videos/gigaassistant-demo.mp4" type="video/mp4">
+  </video>
+  <div class="case-overlay">
+    <div class="case-client">Кейс</div>
+    <div class="case-title">ГигаПомощник —<br><em>голосовой AI.</em></div>
+    <p class="case-desc">Аватар отвечает голосом в реальном времени, понимает контекст разговора и адаптируется под каждого пользователя.</p>
+  </div>
+  <button class="case-sound" onclick="toggleVideoSound(this)" aria-label="Звук">
+    <svg class="icon-muted" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.63 3.63a.996.996 0 000 1.41L7.29 8.7 7 9H4c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1h3l3.29 3.29c.63.63 1.71.18 1.71-.71v-4.17l4.18 4.18c-.49.37-1.02.68-1.6.91-.36.15-.58.53-.58.92 0 .72.73 1.18 1.39.91.8-.31 1.55-.77 2.22-1.31l1.34 1.34a.996.996 0 101.41-1.41L5.05 3.63c-.39-.39-1.02-.39-1.42 0zM19 12c0 .82-.15 1.61-.41 2.34l1.53 1.53c.56-1.17.88-2.48.88-3.87 0-3.83-2.4-7.11-5.78-8.4-.59-.23-1.22.23-1.22.86v.19c0 .38.25.71.61.85C17.18 6.54 19 9.06 19 12zm-8.71-6.29l-.17.17L12 7.76V6.41c0-.89-1.08-1.34-1.71-.71zM16.5 12A4.5 4.5 0 0014 7.97v1.79l2.48 2.48c.01-.08.02-.16.02-.24z"/></svg>
+    <svg class="icon-unmuted" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+  </button>
+</div>
+```
+
+- [ ] **Step 2: Verify**
+
+Reload. Expected: ГигаПомощник now appears as a full-bleed case section matching the М.Видео layout.
+
+- [ ] **Step 3: Commit**
+```bash
+git add index.html
+git commit -m "feat: convert ГигаПомощник featured video to cinematic case"
+```
+
+---
+
+## Task 6: Cinematic Case — СберПервый
+
+Replace the existing `#sberperv` section with cinematic case layout.
+
+**Files:**
+- Modify: `index.html`
+
+- [ ] **Step 1: Find and replace СберПервый block**
+
+Find `<!-- SBERPERV -->` (around line 627). Delete everything from that comment through its closing `</div>` (before `<!-- BRIDGE -->`).
+
+Replace with:
+```html
+<!-- CASE: СБЕРПЕРВЫЙ -->
+<div class="case">
+  <video autoplay muted loop playsinline>
+    <source src="videos/sberperv-irina.mp4" type="video/mp4">
+  </video>
+  <div class="case-overlay">
+    <div class="case-client">Кейс</div>
+    <div class="case-title">СберПервый —<br><em>премиальный банкинг.</em></div>
+    <p class="case-desc">Персональный аватар-советник для клиентов СберПервого. Консультирует по продуктам, сопровождает сделки, всегда на связи.</p>
+  </div>
+  <button class="case-sound" onclick="toggleVideoSound(this)" aria-label="Звук">
+    <svg class="icon-muted" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.63 3.63a.996.996 0 000 1.41L7.29 8.7 7 9H4c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1h3l3.29 3.29c.63.63 1.71.18 1.71-.71v-4.17l4.18 4.18c-.49.37-1.02.68-1.6.91-.36.15-.58.53-.58.92 0 .72.73 1.18 1.39.91.8-.31 1.55-.77 2.22-1.31l1.34 1.34a.996.996 0 101.41-1.41L5.05 3.63c-.39-.39-1.02-.39-1.42 0zM19 12c0 .82-.15 1.61-.41 2.34l1.53 1.53c.56-1.17.88-2.48.88-3.87 0-3.83-2.4-7.11-5.78-8.4-.59-.23-1.22.23-1.22.86v.19c0 .38.25.71.61.85C17.18 6.54 19 9.06 19 12zm-8.71-6.29l-.17.17L12 7.76V6.41c0-.89-1.08-1.34-1.71-.71zM16.5 12A4.5 4.5 0 0014 7.97v1.79l2.48 2.48c.01-.08.02-.16.02-.24z"/></svg>
+    <svg class="icon-unmuted" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+  </button>
+</div>
+```
+
+- [ ] **Step 2: Verify**
+
+Reload. Expected: Three cinematic case sections in sequence — М.Видео, ГигаПомощник, СберПервый.
+
+- [ ] **Step 3: Commit**
+```bash
+git add index.html
+git commit -m "feat: convert СберПервый to cinematic case"
+```
+
+---
+
+## Task 7: Metrics Strip
+
+Replace existing metrics section with full-width dark strip.
+
+**Files:**
+- Modify: `index.html`
+
+- [ ] **Step 1: Add metrics CSS**
+
+In the `<style>` block, find any existing `.metrics` CSS and replace with:
+
+```css
+/* METRICS */
+.metrics {
+    background: #0a0a0a;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 72px 0;
+}
+.metrics-inner {
+    max-width: 1200px; margin: 0 auto;
+    padding: 0 64px;
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+}
+.metric {
+    padding: 0 48px;
+    border-right: 1px solid var(--border);
+    opacity: 0; transform: translateY(12px);
+    transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
+}
+.metric:first-child { padding-left: 0; }
+.metric:last-child { border-right: none; }
+.metric.revealed { opacity: 1; transform: translateY(0); }
+.metric:nth-child(2) { transition-delay: 80ms; }
+.metric:nth-child(3) { transition-delay: 160ms; }
+.metric-number {
+    font-family: var(--font-display);
+    font-size: clamp(44px, 5vw, 64px);
+    font-weight: 800; font-style: italic;
+    line-height: 0.9; letter-spacing: -3px;
+    color: #fff; margin-bottom: 10px;
+}
+.metric-label {
+    font-size: 12px; color: rgba(255,255,255,0.35);
+    line-height: 1.5; font-weight: 400;
+    max-width: 200px;
+}
+```
+
+- [ ] **Step 2: Replace metrics HTML**
+
+Find `<!-- METRICS -->` (around line 650). Replace everything from that comment through its closing tag with:
+
+```html
+<!-- METRICS -->
+<div class="metrics">
+  <div class="metrics-inner">
+    <div class="metric">
+      <div class="metric-number">3×</div>
+      <div class="metric-label">выше конверсия в продажу по сравнению с текстовым чатом</div>
+    </div>
+    <div class="metric">
+      <div class="metric-number">24/7</div>
+      <div class="metric-label">без паузы, без усталости — аватар всегда в форме</div>
+    </div>
+    <div class="metric">
+      <div class="metric-number">−60%</div>
+      <div class="metric-label">нагрузки на колл-центр после запуска аватара</div>
+    </div>
+  </div>
+</div>
+```
+
+- [ ] **Step 3: Verify**
+
+Reload. Expected:
+- Three-column dark strip with large italic Fraunces numbers
+- Numbers: 3×, 24/7, −60%
+- Subtle border between columns
+
+- [ ] **Step 4: Commit**
+```bash
+git add index.html
+git commit -m "feat: cinematic metrics strip with Fraunces numbers"
+```
+
+---
+
+## Task 8: Demo CTA Section
+
+Replace existing demo section with full-width centered CTA.
+
+**Files:**
+- Modify: `index.html`
+
+- [ ] **Step 1: Replace demo CSS**
+
+Find `.demo-section` CSS and replace with:
+
+```css
+/* DEMO CTA */
+.demo-section {
+    padding: 120px 48px;
+    text-align: center;
+    background: var(--bg);
+}
+.demo-eyebrow {
+    font-size: 8px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--text-ghost); margin-bottom: 28px;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.demo-headline {
+    font-family: var(--font-display);
+    font-size: clamp(40px, 4.5vw, 64px);
+    font-weight: 800; font-style: italic;
+    line-height: 0.9; letter-spacing: -3px;
+    color: #fff; margin-bottom: 40px;
+}
+.demo-ctas {
+    display: flex; gap: 16px; justify-content: center; align-items: center;
+}
+```
+
+- [ ] **Step 2: Replace demo HTML**
+
+Find `<!-- DEMO -->` (around line 668). Replace from that comment through its closing tag with:
+
+```html
+<!-- DEMO -->
+<div class="demo-section" id="demo">
+  <div class="demo-eyebrow">
+    <span class="live-dot"></span>
+    Digital Humans · Sber
+  </div>
+  <h2 class="demo-headline">Готовы запустить<br>своего аватара?</h2>
+  <div class="demo-ctas">
+    <a href="#" class="btn btn-primary">Поговорить с аватаром</a>
+    <a href="#cases" class="btn btn-ghost">Смотреть кейсы →</a>
+  </div>
+</div>
+```
+
+- [ ] **Step 3: Verify**
+
+Reload. Expected: Full-width dark section with Fraunces italic headline centered, acid-green CTA button, live dot in eyebrow.
+
+- [ ] **Step 4: Commit**
+```bash
+git add index.html
+git commit -m "feat: cinematic demo CTA section"
+```
+
+---
+
+## Task 9: Scroll Animations — IntersectionObserver
+
+Wire up case overlay reveals and metrics stagger.
+
+**Files:**
+- Modify: `index.html` — JS `<script>` block at bottom
+
+- [ ] **Step 1: Replace or extend JS block**
+
+Find the `<script>` tag near the bottom of `index.html`. Keep the existing `toggleVideoSound` function. Add after it:
+
+```javascript
+// Case overlay reveal
+const caseObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('revealed');
+      caseObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.case').forEach(c => caseObs.observe(c));
+
+// Metrics stagger reveal
+const metricObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.metric').forEach(m => m.classList.add('revealed'));
+      metricObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.2 });
+const metricsEl = document.querySelector('.metrics');
+if (metricsEl) metricObs.observe(metricsEl);
+```
+
+- [ ] **Step 2: Verify**
+
+Reload. Scroll down the page. Expected:
+- Case overlay text fades in + slides up as each case enters viewport
+- Metrics numbers stagger in (0ms, 80ms, 160ms delays) when scrolled into view
+
+- [ ] **Step 3: Commit**
+```bash
+git add index.html
+git commit -m "feat: IntersectionObserver scroll reveals for cases and metrics"
+```
+
+---
+
+## Task 10: Polish — Mobile Responsive + Footer
+
+Add mobile breakpoints and a minimal footer.
+
+**Files:**
+- Modify: `index.html`
+
+- [ ] **Step 1: Add mobile breakpoints**
+
+In the `<style>` block, at the very end before `</style>`, add:
+
+```css
+/* MOBILE */
+@media (max-width: 768px) {
+    .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+    }
+    .hero-right {
+        height: 56vw;
+        min-height: 260px;
+    }
+    .hero-left {
+        padding: 80px 28px 48px;
+        order: 2;
+    }
+    .hero-right { order: 1; }
+
+    .case { height: 72vw; min-height: 240px; }
+    .case-overlay { padding: 24px 24px; }
+    .case-sound { bottom: 20px; right: 20px; }
+
+    .metrics-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 0 32px;
+    }
+    .metric {
+        padding: 0;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 40px;
+    }
+    .metric:last-child { border-bottom: none; padding-bottom: 0; }
+
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+
+    .demo-section { padding: 80px 28px; }
+}
+```
+
+- [ ] **Step 2: Replace footer**
+
+Find existing footer HTML (if any) or the closing `</body>` tag. Add before `</body>`:
+
+```html
+<!-- FOOTER -->
+<footer style="padding: 32px 64px; border-top: 1px solid rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:space-between;">
+  <span style="font-size:12px; color:rgba(255,255,255,0.2); font-family:var(--font-body);">© 2025 Digital Humans · Sber</span>
+  <span style="font-size:12px; color:rgba(255,255,255,0.15); font-family:var(--font-body);">digital-humans.sber.ru</span>
+</footer>
+```
+
+- [ ] **Step 3: Verify desktop + mobile**
+
+In Chrome DevTools, toggle mobile viewport (375px width). Expected:
+- Hero stacks: video on top, copy below
+- Cases fill ~72% viewport height
+- Metrics go single-column
+- Nav hides links on mobile
+
+- [ ] **Step 4: Final commit**
+```bash
+git add index.html
+git commit -m "feat: mobile responsive breakpoints and minimal footer"
+```
+
+---
+
+## Self-Review
+
+**Spec coverage check:**
+- [x] Fraunces font — Task 1
+- [x] #C8FF00 in details only (dot + divider) — Task 2
+- [x] Split-screen hero with copy + video — Task 2
+- [x] Hero copy: "Интерфейс, который тебя понимает." — Task 2
+- [x] Cinematic case tape: М.Видео, ГигаПомощник, СберПервый — Tasks 4–6
+- [x] Remove: manifesto, pillars, bridge, tech — Task 3
+- [x] Metrics strip — Task 7
+- [x] Demo CTA — Task 8
+- [x] Scroll animations — Task 9
+- [x] Sound toggles on all cases — Tasks 4–6 (each case has sound button)
+- [x] Mobile responsive — Task 10
+- [x] Custom easing vars — Task 1
+- [x] `scale(0.97)` on button :active — Task 2 (`.btn:active`)
+
+**Placeholder scan:** No TBDs, TODOs, or "similar to" references found.
+
+**Type consistency:** `toggleVideoSound(btn)` used consistently in Tasks 4–6 and referenced in Task 9 JS block. `.case.revealed`, `.metric.revealed` used in CSS (Tasks 4, 7) and JS (Task 9).
