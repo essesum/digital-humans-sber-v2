@@ -412,6 +412,7 @@
 
             .demo-section { padding: 80px 28px; }
             .demo-ctas { flex-direction: column; gap: 12px; }
+            footer { padding: 24px 28px; }
         }
     </style>
 </head>
@@ -567,17 +568,16 @@
         btn.querySelector('.icon-unmuted').style.display = video.muted ? 'none' : '';
     }
 
-    // Metrics stagger reveal
+    // Metrics stagger reveal — observe each metric individually
     const metricObs = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) {
-          e.target.querySelectorAll('.metric').forEach(m => m.classList.add('revealed'));
+          e.target.classList.add('revealed');
           metricObs.unobserve(e.target);
         }
       });
     }, { threshold: 0.2 });
-    const metricsEl = document.querySelector('.metrics');
-    if (metricsEl) metricObs.observe(metricsEl);
+    document.querySelectorAll('.metric').forEach(m => metricObs.observe(m));
 
 </script>
 
