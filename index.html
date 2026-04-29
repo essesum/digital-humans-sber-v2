@@ -5,23 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Humans — Цифровые аватары для бизнеса</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=Syne:wght@600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,800;1,9..144,800&family=DM+Sans:wght@400;500&display=swap');
 
         :root {
-            --bg: #050506;
-            --bg-elevated: #0a0a0c;
-            --bg-card: #0e0e12;
-            --bg-card-hover: #141418;
-            --accent: #5E6AD2;
-            --accent-light: #8B95E9;
-            --accent-glow: rgba(94,106,210,0.2);
-            --text: #EDEDF0;
-            --text-secondary: #9494A8;
-            --text-dim: #52526A;
+            --bg: #070707;
+            --bg-elevated: #0e0e0e;
+            --bg-card: #111111;
+            --acid: #C8FF00;
+            --text: #ffffff;
+            --text-dim: rgba(255,255,255,0.45);
+            --text-ghost: rgba(255,255,255,0.18);
             --border: rgba(255,255,255,0.06);
-            --border-accent: rgba(94,106,210,0.15);
-            --font-display: 'Syne', sans-serif;
+            --font-display: 'Fraunces', serif;
             --font-body: 'DM Sans', sans-serif;
+            --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+            --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -51,25 +49,27 @@
         /* NAV */
         nav {
             position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            padding: 18px 48px;
+            padding: 20px 48px;
             display: flex; align-items: center; justify-content: space-between;
-            background: rgba(5,5,6,0.85);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
+            background: rgba(7,7,7,0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
         }
         .nav-logo {
-            font-family: var(--font-display);
-            font-size: 17px; font-weight: 700; letter-spacing: -0.3px;
-            color: var(--text);
+            font-family: var(--font-body);
+            font-size: 13px; font-weight: 500; letter-spacing: 0.2px;
+            color: rgba(255,255,255,0.7);
         }
         .nav-links { display: flex; gap: 32px; list-style: none; }
         .nav-links a {
-            color: var(--text-secondary); text-decoration: none;
-            font-size: 13px; font-weight: 500; letter-spacing: 0.3px;
-            transition: color 0.3s;
+            color: rgba(255,255,255,0.35); text-decoration: none;
+            font-size: 12px; font-weight: 500; letter-spacing: 0.3px;
+            transition: color 180ms var(--ease-out);
         }
-        .nav-links a:hover { color: #fff; }
+        @media (hover: hover) and (pointer: fine) {
+            .nav-links a:hover { color: #fff; }
+        }
 
         /* HERO */
         .hero {
@@ -102,6 +102,11 @@
         .hero-content {
             position: relative; z-index: 1;
             max-width: 800px;
+            animation: heroIn 700ms var(--ease-out) both;
+        }
+        @keyframes heroIn {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
         .hero h1 {
             font-family: var(--font-display);
@@ -123,7 +128,7 @@
             padding: 16px 36px; border-radius: 12px;
             font-size: 15px; font-weight: 600;
             text-decoration: none;
-            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, background 0.2s ease-out, border-color 0.2s ease-out;
+            transition: transform 160ms var(--ease-out), box-shadow 160ms var(--ease-out), background 160ms var(--ease-out), border-color 160ms var(--ease-out);
             cursor: pointer; border: none;
             display: inline-flex; align-items: center; justify-content: center;
         }
@@ -133,18 +138,19 @@
             color: #fff;
             box-shadow: 0 2px 20px var(--accent-glow);
         }
-        .btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 32px rgba(94,106,210,0.4);
-            background: var(--accent-light);
+        @media (hover: hover) and (pointer: fine) {
+            .btn-primary:hover {
+                box-shadow: 0 6px 32px rgba(94,106,210,0.4);
+                background: var(--accent-light);
+            }
+            .btn-ghost:hover {
+                background: rgba(255,255,255,0.08);
+                border-color: rgba(255,255,255,0.2);
+            }
         }
         .btn-ghost {
             background: rgba(255,255,255,0.04); color: var(--text);
             border: 1px solid rgba(255,255,255,0.1);
-        }
-        .btn-ghost:hover {
-            background: rgba(255,255,255,0.08);
-            border-color: rgba(255,255,255,0.2);
         }
 
         /* SECTIONS */
@@ -227,6 +233,22 @@
             font-size: 13px; font-weight: 600; color: #fff;
             letter-spacing: 0.5px;
         }
+        .sound-btn {
+            position: absolute; bottom: 20px; right: 20px;
+            width: 40px; height: 40px; border-radius: 50%;
+            background: rgba(0,0,0,0.55);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(94,106,210,0.35);
+            color: #fff; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 150ms var(--ease-out), border-color 150ms var(--ease-out), transform 120ms var(--ease-out);
+            z-index: 10;
+        }
+        .sound-btn:active { transform: scale(0.92); }
+        @media (hover: hover) and (pointer: fine) {
+            .sound-btn:hover { background: rgba(94,106,210,0.4); border-color: rgba(94,106,210,0.7); }
+        }
+        .sound-btn svg { width: 18px; height: 18px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
         /* PILLARS */
         .pillars {
@@ -243,12 +265,23 @@
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 40px 32px;
-            transition: border-color 0.25s ease-out, transform 0.25s ease-out, box-shadow 0.25s ease-out;
+            transition: border-color 200ms var(--ease-out), transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+            opacity: 0;
+            transform: translateY(16px);
         }
-        .pillar:hover {
-            border-color: var(--border-accent);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        .pillar.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .pillar:nth-child(1) { transition-delay: 0ms; }
+        .pillar:nth-child(2) { transition-delay: 60ms; }
+        .pillar:nth-child(3) { transition-delay: 120ms; }
+        @media (hover: hover) and (pointer: fine) {
+            .pillar:hover {
+                border-color: var(--border-accent);
+                transform: translateY(-2px);
+                box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            }
         }
         .pillar-num {
             font-family: var(--font-display);
@@ -290,7 +323,7 @@
             border: 1px solid var(--border);
             aspect-ratio: 16/9;
             background: #000;
-            transition: border-color 0.3s ease-out, box-shadow 0.3s ease-out, transform 0.3s ease-out;
+            transition: border-color 200ms var(--ease-out), box-shadow 200ms var(--ease-out), transform 200ms var(--ease-out);
         }
         .video-cell.tall {
             aspect-ratio: 9/14;
@@ -299,10 +332,12 @@
             grid-column: 1 / -1;
             aspect-ratio: 21/9;
         }
-        .video-cell:hover {
-            border-color: var(--border-accent);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-            transform: translateY(-2px);
+        @media (hover: hover) and (pointer: fine) {
+            .video-cell:hover {
+                border-color: var(--border-accent);
+                box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+                transform: translateY(-2px);
+            }
         }
         .video-cell video {
             width: 100%; height: 100%; object-fit: cover; display: block;
@@ -418,12 +453,20 @@
             font-size: 13px; font-weight: 500;
             background: var(--bg-card); color: var(--text-secondary);
             border: 1px solid var(--border); cursor: pointer;
-            transition: all 0.3s;
+            transition: background 150ms var(--ease-out), color 150ms var(--ease-out), border-color 150ms var(--ease-out), transform 120ms var(--ease-out);
         }
-        .anim-cat-btn:hover, .anim-cat-btn.active {
+        .anim-cat-btn:active { transform: scale(0.97); }
+        .anim-cat-btn.active {
             background: rgba(94,106,210,0.15);
             color: var(--accent-light);
             border-color: rgba(94,106,210,0.3);
+        }
+        @media (hover: hover) and (pointer: fine) {
+            .anim-cat-btn:hover {
+                background: rgba(94,106,210,0.15);
+                color: var(--accent-light);
+                border-color: rgba(94,106,210,0.3);
+            }
         }
         .anim-table-wrap {
             background: var(--bg-card);
@@ -516,11 +559,12 @@
 <!-- FEATURED: GigaAssistant -->
 <div class="featured-wrap" style="margin-bottom: 24px; position: relative; z-index: 2;">
     <div class="featured">
-        <video src="videos/giga-assistant.mp4" muted loop playsinline preload="metadata"></video>
+        <video id="giga-video" src="videos/giga-assistant.mp4" muted loop playsinline preload="metadata"></video>
         <div class="featured-label">
             <div class="featured-dot"></div>
             <span>ГигаПомощник — AI-ассистент</span>
         </div>
+        <button class="sound-btn" onclick="toggleVideoSound(this)"><svg class="icon-muted" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg class="icon-unmuted" viewBox="0 0 24 24" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></button>
     </div>
 </div>
 
@@ -551,18 +595,45 @@
         <div class="video-cell wide">
             <video src="videos/mvideo-original.mp4" muted loop playsinline preload="metadata"></video>
             <div class="video-tag">М.Видео</div>
+            <button class="sound-btn" onclick="toggleVideoSound(this)"><svg class="icon-muted" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg class="icon-unmuted" viewBox="0 0 24 24" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></button>
         </div>
         <div class="video-cell">
             <video src="videos/doctor-bg.mp4" muted loop playsinline preload="metadata"></video>
             <div class="video-tag">AI-консультант</div>
+            <button class="sound-btn" onclick="toggleVideoSound(this)"><svg class="icon-muted" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg class="icon-unmuted" viewBox="0 0 24 24" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></button>
         </div>
         <div class="video-cell">
             <video src="videos/seedance-2.mp4" muted loop playsinline preload="metadata"></video>
             <div class="video-tag">Digital Human</div>
+            <button class="sound-btn" onclick="toggleVideoSound(this)"><svg class="icon-muted" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg class="icon-unmuted" viewBox="0 0 24 24" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></button>
         </div>
-        <div class="video-cell wide">
-            <video src="videos/cinematic-avatar.mp4" muted loop playsinline preload="metadata"></video>
-            <div class="video-tag">Cinematic Avatar</div>
+        <div class="video-cell">
+            <video src="videos/credit.mp4" muted loop playsinline preload="metadata"></video>
+            <div class="video-tag">Кредит</div>
+            <button class="sound-btn" onclick="toggleVideoSound(this)"><svg class="icon-muted" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg class="icon-unmuted" viewBox="0 0 24 24" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></button>
+        </div>
+        <div class="video-cell">
+            <video src="videos/gigaassistant-demo.mp4" muted loop playsinline preload="metadata"></video>
+            <div class="video-tag">ГигаПомощник — демо</div>
+            <button class="sound-btn" onclick="toggleVideoSound(this)"><svg class="icon-muted" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg class="icon-unmuted" viewBox="0 0 24 24" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></button>
+        </div>
+    </div>
+</div>
+
+<!-- SBERPERV -->
+<div class="video-section" id="sberperv" style="padding-top: 64px;">
+    <div class="section-label">Кейс</div>
+    <h2 class="section-title">СберПервый</h2>
+    <div class="video-grid">
+        <div class="video-cell">
+            <video src="videos/sberperv-mvp.mp4" muted loop playsinline preload="metadata" style="object-fit: contain;"></video>
+            <div class="video-tag">MVP</div>
+            <button class="sound-btn" onclick="toggleVideoSound(this)"><svg class="icon-muted" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg class="icon-unmuted" viewBox="0 0 24 24" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></button>
+        </div>
+        <div class="video-cell">
+            <video src="videos/sberperv-irina.mp4" muted loop playsinline preload="metadata"></video>
+            <div class="video-tag">Ирина</div>
+            <button class="sound-btn" onclick="toggleVideoSound(this)"><svg class="icon-muted" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg class="icon-unmuted" viewBox="0 0 24 24" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></button>
         </div>
     </div>
 </div>
@@ -683,6 +754,24 @@
     }, { threshold: 0.25 });
     vids.forEach(v => obs.observe(v));
 
+    function toggleVideoSound(btn) {
+        const container = btn.closest('.featured, .video-cell');
+        const video = container.querySelector('video');
+        video.muted = !video.muted;
+        btn.querySelector('.icon-muted').style.display = video.muted ? '' : 'none';
+        btn.querySelector('.icon-unmuted').style.display = video.muted ? 'none' : '';
+    }
+
+    // Stagger pillars on scroll
+    const pillarsObs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('revealed');
+                pillarsObs.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.pillar').forEach(p => pillarsObs.observe(p));
 </script>
 
 </body>
