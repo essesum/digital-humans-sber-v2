@@ -259,63 +259,63 @@
             font-weight: 700; letter-spacing: -1px; margin-bottom: 48px;
         }
 
-        /* DEMO */
+        /* DEMO CTA */
         .demo-section {
-            max-width: 1400px; margin: 0 auto;
-            padding: 0 48px 48px;
+            padding: 120px 48px;
+            text-align: center;
+            background: var(--bg);
         }
-        .demo-wrap {
-            background: var(--bg-card);
-            border-radius: 20px; border: 1px solid var(--border);
-            overflow: hidden;
+        .demo-eyebrow {
+            font-size: 8px; letter-spacing: 3px; text-transform: uppercase;
+            color: var(--text-ghost); margin-bottom: 28px;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
         }
-        .demo-header {
-            padding: 20px 28px;
-            display: flex; align-items: center; justify-content: space-between;
-            border-bottom: 1px solid var(--border);
+        .demo-headline {
+            font-family: var(--font-display);
+            font-size: clamp(40px, 4.5vw, 64px);
+            font-weight: 800; font-style: italic;
+            line-height: 0.9; letter-spacing: -3px;
+            color: #fff; margin-bottom: 40px;
         }
-        .demo-header h3 { font-size: 15px; font-weight: 600; }
-        .demo-live {
-            display: flex; align-items: center; gap: 8px;
-            font-size: 12px; font-weight: 600; color: var(--accent-light);
-            text-transform: uppercase; letter-spacing: 1px;
+        .demo-ctas {
+            display: flex; gap: 16px; justify-content: center; align-items: center;
         }
-        .demo-live::before {
-            content: ''; width: 7px; height: 7px;
-            border-radius: 50%; background: var(--accent-light);
-            animation: pulse 2s infinite;
-        }
-        .demo-iframe { width: 100%; height: 85vh; min-height: 700px; background: #000; }
-        .demo-iframe iframe { width: 100%; height: 100%; border: none; }
 
         /* METRICS */
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1px;
-            background: var(--border);
-            border-radius: 20px;
-            overflow: hidden;
+        .metrics {
+            background: #0a0a0a;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 72px 0;
+        }
+        .metrics-inner {
+            max-width: 1200px; margin: 0 auto;
+            padding: 0 64px;
+            display: grid; grid-template-columns: 1fr 1fr 1fr;
+            gap: 0;
         }
         .metric {
-            background: var(--bg-card);
-            padding: 48px 32px;
-            text-align: center;
+            padding: 0 48px;
+            border-right: 1px solid var(--border);
+            opacity: 0; transform: translateY(12px);
+            transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
         }
-        .metric-value {
-            font-family: var(--font-body);
-            font-size: clamp(48px, 6vw, 72px);
-            font-weight: 700;
-            letter-spacing: -1px;
-            line-height: 1;
-            margin-bottom: 14px;
-            color: #fff;
+        .metric:first-child { padding-left: 0; }
+        .metric:last-child { border-right: none; }
+        .metric.revealed { opacity: 1; transform: translateY(0); }
+        .metric:nth-child(2) { transition-delay: 80ms; }
+        .metric:nth-child(3) { transition-delay: 160ms; }
+        .metric-number {
+            font-family: var(--font-display);
+            font-size: clamp(44px, 5vw, 64px);
+            font-weight: 800; font-style: italic;
+            line-height: 0.9; letter-spacing: -3px;
+            color: #fff; margin-bottom: 10px;
         }
         .metric-label {
-            font-size: 15px;
-            color: var(--text-secondary);
-            line-height: 1.5;
-            font-weight: 400;
+            font-size: 12px; color: rgba(255,255,255,0.35);
+            line-height: 1.5; font-weight: 400;
+            max-width: 200px;
         }
 
         /* ANIMATIONS */
@@ -475,65 +475,36 @@
           </button>
         </div>
 
-<!-- METRICS -->
-<div style="max-width: 1400px; margin: 0 auto; padding: 0 48px 48px;">
-    <div class="metrics-grid">
-        <div class="metric">
-            <div class="metric-value">96%</div>
-            <div class="metric-label">довольны после пилота</div>
-        </div>
-        <div class="metric">
-            <div class="metric-value">81%</div>
-            <div class="metric-label">выбирают формат с аватаром</div>
-        </div>
-        <div class="metric">
-            <div class="metric-value">&times;5,8</div>
-            <div class="metric-label">рост конверсии</div>
-        </div>
-    </div>
-</div>
-
-<!-- DEMO -->
-<div class="demo-section" id="demo">
-    <div class="demo-wrap">
-        <div class="demo-header">
-            <h3>2D Avatar — Browser Stage</h3>
-            <div class="demo-live">Online</div>
-        </div>
-        <div class="demo-iframe" id="demo-iframe-wrap">
-            <div id="demo-auth" style="display:flex;align-items:center;justify-content:center;height:100%;background:#0a0a0f;">
-                <div style="text-align:center;max-width:320px;padding:32px;">
-                    <div style="color:#888;font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:24px;">Демо · Доступ</div>
-                    <input id="demo-user" type="text" placeholder="Логин" style="width:100%;box-sizing:border-box;background:#111;border:1px solid #333;color:#fff;padding:10px 14px;border-radius:8px;font-size:14px;margin-bottom:10px;outline:none;">
-                    <input id="demo-pass" type="password" placeholder="Пароль" style="width:100%;box-sizing:border-box;background:#111;border:1px solid #333;color:#fff;padding:10px 14px;border-radius:8px;font-size:14px;margin-bottom:16px;outline:none;">
-                    <button onclick="loadDemo()" style="width:100%;background:#5E6AD2;color:#fff;border:none;padding:11px;border-radius:8px;font-size:14px;cursor:pointer;letter-spacing:.04em;">Открыть демо ↗</button>
-                    <div id="demo-error" style="color:#ff6b6b;font-size:12px;margin-top:12px;display:none;">Неверный логин или пароль</div>
-                </div>
+        <!-- METRICS -->
+        <div class="metrics">
+          <div class="metrics-inner">
+            <div class="metric">
+              <div class="metric-number">3×</div>
+              <div class="metric-label">выше конверсия в продажу по сравнению с текстовым чатом</div>
             </div>
-            <iframe id="demo-frame" src="" allow="camera; microphone; autoplay" allowfullscreen style="display:none;width:100%;height:100%;border:none;"></iframe>
+            <div class="metric">
+              <div class="metric-number">24/7</div>
+              <div class="metric-label">без паузы, без усталости — аватар всегда в форме</div>
+            </div>
+            <div class="metric">
+              <div class="metric-number">−60%</div>
+              <div class="metric-label">нагрузки на колл-центр после запуска аватара</div>
+            </div>
+          </div>
         </div>
-        <script>
-        async function loadDemo() {
-            const user = document.getElementById('demo-user').value.trim();
-            const pass = document.getElementById('demo-pass').value;
-            const url = 'https://avatar2d-browser-stage.digitalavatars.ru/live';
-            document.getElementById('demo-error').style.display = 'none';
-            try {
-                const res = await fetch(url, {
-                    headers: { 'Authorization': 'Basic ' + btoa(unescape(encodeURIComponent(user + ':' + pass))) },
-                    mode: 'no-cors'
-                });
-                // После прогрева — открываем в новой вкладке (Basic Auth в iframe заблокирован Chrome)
-                window.open(url, '_blank');
-            } catch(e) {
-                document.getElementById('demo-error').textContent = 'Ошибка подключения';
-                document.getElementById('demo-error').style.display = 'block';
-            }
-        }
-        document.addEventListener('keydown', function(e){ if(e.key==='Enter') loadDemo(); });
-        </script>
-    </div>
-</div>
+
+        <!-- DEMO -->
+        <div class="demo-section" id="demo">
+          <div class="demo-eyebrow">
+            <span class="live-dot"></span>
+            Digital Humans · Sber
+          </div>
+          <h2 class="demo-headline">Готовы запустить<br>своего аватара?</h2>
+          <div class="demo-ctas">
+            <a href="#" class="btn btn-primary">Поговорить с аватаром</a>
+            <a href="#cases" class="btn btn-ghost">Смотреть кейсы →</a>
+          </div>
+        </div>
 
 <footer>Digital Humans &copy; 2026</footer>
 
