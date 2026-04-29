@@ -369,23 +369,49 @@
         .anim-group { display: none; }
         .anim-group.active { display: block; }
 
-        /* FOOTER */
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 48px; text-align: center;
-            color: var(--text-dim); font-size: 13px;
+/* RESPONSIVE */
+        @media (max-width: 900px) {
+            .hero { padding-top: 60px; }
         }
 
-        /* RESPONSIVE */
-        @media (max-width: 900px) {
-            nav { padding: 14px 20px; }
+        @media (max-width: 768px) {
+            nav { padding: 16px 24px; }
             .nav-links { display: none; }
-            section, .demo-section { padding-left: 20px; padding-right: 20px; }
-            .hero { padding: 160px 20px 80px; }
-            .metrics-grid { grid-template-columns: 1fr; }
-            .demo-iframe { height: 500px; min-height: 500px; }
-            .case { height: min(75vw, 500px); }
+
+            .hero {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+            .hero-right {
+                height: 56vw;
+                min-height: 260px;
+                order: 1;
+            }
+            .hero-left {
+                padding: 48px 28px 56px;
+                order: 2;
+            }
+
+            .case { height: 72vw; min-height: 240px; }
             .case-overlay { padding: 24px 24px; }
+            .case-sound { bottom: 20px; right: 20px; }
+
+            .metrics { padding: 48px 0; }
+            .metrics-inner {
+                grid-template-columns: 1fr;
+                gap: 0;
+                padding: 0 32px;
+            }
+            .metric {
+                padding: 24px 0;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+            .metric:first-child { padding-top: 0; }
+            .metric:last-child { border-bottom: none; }
+
+            .demo-section { padding: 80px 28px; }
+            .demo-ctas { flex-direction: column; gap: 12px; }
         }
     </style>
 </head>
@@ -506,7 +532,11 @@
           </div>
         </div>
 
-<footer>Digital Humans &copy; 2026</footer>
+        <!-- FOOTER -->
+        <footer style="padding:32px 64px;border-top:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+          <span style="font-size:12px;color:rgba(255,255,255,0.2);font-family:var(--font-body);">© 2025 Digital Humans · Sber</span>
+          <span style="font-size:12px;color:rgba(255,255,255,0.15);font-family:var(--font-body);">digital-humans.sber.ru</span>
+        </footer>
 
 <script>
     const vids = document.querySelectorAll('video:not([autoplay])');
