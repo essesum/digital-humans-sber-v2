@@ -324,6 +324,58 @@
             .sdk-item:last-child { border-bottom: none; }
         }
 
+        /* CLIENTS SECTION */
+        .clients-section {
+            padding: 96px 72px;
+            border-top: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .clients-eyebrow {
+            font-size: 8px; letter-spacing: 3px; text-transform: uppercase;
+            color: var(--text-ghost);
+            margin-bottom: 40px;
+        }
+        .clients-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        .clients-list li {
+            font-size: 18px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.55);
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+            transition: color 200ms var(--ease-out);
+            cursor: default;
+            letter-spacing: -0.2px;
+        }
+        .clients-list li:first-child { border-top: 1px solid var(--border); }
+        .clients-list li:hover { color: #fff; }
+        .clients-video-wrap {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 1 / 1;
+            background: #0a0a0a;
+        }
+        .clients-video-wrap video {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        @media (max-width: 768px) {
+            .clients-section {
+                grid-template-columns: 1fr;
+                padding: 64px 28px;
+                gap: 40px;
+            }
+        }
+
         /* METRICS */
         .metrics {
             background: #0a0a0a;
@@ -552,6 +604,30 @@
                 <p class="sdk-desc">API для управления анимациями, idle-циклами, очередью жестов и событиями — аватар реагирует на контекст разговора.</p>
               </div>
             </div>
+          </div>
+        </div>
+
+        <!-- CLIENTS -->
+        <div class="clients-section">
+          <div>
+            <div class="clients-eyebrow">Клиенты</div>
+            <ul class="clients-list">
+              <li>СберПервый</li>
+              <li>ИИ офис ВСП</li>
+              <li>СберКидс</li>
+              <li>Пульс Алтайка</li>
+              <li>Гига ИИ-агент</li>
+              <li>КиБ видеоролики</li>
+              <li>ЦППК</li>
+              <li>СберЗдоровье (GigaDoc)</li>
+              <li>Корпоративный университет</li>
+              <li>МФЦ</li>
+            </ul>
+          </div>
+          <div class="clients-video-wrap">
+            <video muted loop playsinline>
+              <source src="videos/cat.mp4" type="video/mp4">
+            </video>
           </div>
         </div>
 
