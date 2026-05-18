@@ -79,6 +79,7 @@
             overflow: hidden;
             display: flex;
             align-items: center;
+            justify-content: flex-end;
         }
 
         .hero-video-bg {
@@ -92,7 +93,7 @@
         .hero-video-bg::after {
             content: '';
             position: absolute; inset: 0;
-            background: linear-gradient(to right,
+            background: linear-gradient(to left,
                 rgba(7,7,7,0.92) 0%,
                 rgba(7,7,7,0.75) 35%,
                 rgba(7,7,7,0.25) 65%,
@@ -101,7 +102,7 @@
 
         .hero-left {
             display: flex; flex-direction: column; justify-content: center;
-            padding: 80px 64px 80px 72px;
+            padding: 80px 72px 80px 64px;
             position: relative; z-index: 1;
             max-width: 620px;
             animation: heroIn 700ms var(--ease-out) both;
@@ -317,6 +318,7 @@
             .hero {
                 min-height: 100svh;
                 align-items: flex-end;
+                justify-content: flex-start;
             }
             .hero-left {
                 padding: 48px 28px 64px;
