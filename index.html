@@ -86,9 +86,11 @@
             position: absolute; inset: 0; z-index: 0;
         }
         .hero-video-bg video {
+            position: absolute; inset: 0;
             width: 100%; height: 100%;
             object-fit: cover;
             object-position: left center;
+            transition: opacity 0.6s ease;
         }
         .hero-video-bg::after {
             content: '';
@@ -362,8 +364,11 @@
         <!-- HERO -->
         <section class="hero">
           <div class="hero-video-bg">
-            <video autoplay muted loop playsinline>
+            <video id="hero-vid-in" muted playsinline>
               <source src="videos/hero-voice-ai.mp4" type="video/mp4">
+            </video>
+            <video id="hero-vid-out" muted playsinline style="opacity:0">
+              <source src="videos/hero-voice-ai-out.mp4" type="video/mp4">
             </video>
           </div>
           <div class="hero-left">
@@ -512,6 +517,35 @@
       });
     }, { threshold: 0.2 });
     document.querySelectorAll('.metric').forEach(m => metricObs.observe(m));
+
+    // Hero video sequence: in → pause 5s on last frame → out → repeat
+    (function() {
+      const vIn  = document.getElementById('hero-vid-in');
+      const vOut = document.getElementById('hero-vid-out');
+
+      function showIn() {
+        vIn.style.opacity  = '1';
+        vOut.style.opacity = '0';
+        vIn.currentTime = 0;
+        vIn.play();
+      }
+
+      function showOut() {
+        vOut.style.opacity = '1';
+        vOut.currentTime = 0;
+        vOut.play();
+      }
+
+      vIn.addEventListener('ended', function() {
+        setTimeout(showOut, 5000);
+      });
+
+      vOut.addEventListener('ended', function() {
+        setTimeout(showIn, 100);
+      });
+
+      showIn();
+    })();
 
 </script>
 
