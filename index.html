@@ -518,22 +518,29 @@
     }, { threshold: 0.2 });
     document.querySelectorAll('.metric').forEach(m => metricObs.observe(m));
 
-    // Hero video sequence: in → pause 5s on last frame → out → repeat
+    // Hero video sequence: appear → pause 5s on last frame → disappear → repeat
     (function() {
       const vIn  = document.getElementById('hero-vid-in');
       const vOut = document.getElementById('hero-vid-out');
+      if (!vIn || !vOut) return;
+
+      function playVideo(v) {
+        var p = v.play();
+        if (p !== undefined) p.catch(function() {});
+      }
 
       function showIn() {
         vIn.style.opacity  = '1';
         vOut.style.opacity = '0';
         vIn.currentTime = 0;
-        vIn.play();
+        playVideo(vIn);
       }
 
       function showOut() {
+        vIn.style.opacity  = '0';
         vOut.style.opacity = '1';
         vOut.currentTime = 0;
-        vOut.play();
+        playVideo(vOut);
       }
 
       vIn.addEventListener('ended', function() {
@@ -541,10 +548,13 @@
       });
 
       vOut.addEventListener('ended', function() {
-        setTimeout(showIn, 100);
+        setTimeout(showIn, 300);
       });
 
-      showIn();
+      // preload both, then start
+      vIn.load();
+      vOut.load();
+      playVideo(vIn);
     })();
 
 </script>
