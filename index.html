@@ -364,10 +364,10 @@
         <!-- HERO -->
         <section class="hero">
           <div class="hero-video-bg">
-            <video id="hero-vid-in" muted playsinline>
+            <video id="hero-vid-in" muted playsinline data-hero-seq>
               <source src="videos/hero-voice-ai.mp4" type="video/mp4">
             </video>
-            <video id="hero-vid-out" muted playsinline style="opacity:0">
+            <video id="hero-vid-out" muted playsinline data-hero-seq style="opacity:0">
               <source src="videos/hero-voice-ai-out.mp4" type="video/mp4">
             </video>
           </div>
@@ -478,7 +478,7 @@
         </footer>
 
 <script>
-    const vids = document.querySelectorAll('video:not([autoplay])');
+    const vids = document.querySelectorAll('video:not([autoplay]):not([data-hero-seq])');
     const obs = new IntersectionObserver(entries => {
         entries.forEach(e => {
             if (e.isIntersecting) e.target.play();
