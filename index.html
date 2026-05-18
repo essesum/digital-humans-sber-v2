@@ -273,13 +273,13 @@
 
         /* SDK SECTION */
         .sdk-section {
-            padding: 96px 72px;
+            padding: 120px 72px;
             border-top: 1px solid var(--border);
         }
         .sdk-eyebrow {
             font-size: 8px; letter-spacing: 3px; text-transform: uppercase;
             color: var(--text-ghost);
-            margin-bottom: 40px;
+            margin-bottom: 64px;
         }
         .sdk-grid {
             display: grid;
@@ -287,33 +287,34 @@
             gap: 0;
         }
         .sdk-item {
-            padding: 32px 40px 32px 0;
+            padding: 52px 64px 52px 0;
             border-bottom: 1px solid var(--border);
             display: flex;
-            gap: 20px;
+            gap: 28px;
             align-items: flex-start;
         }
-        .sdk-item:nth-child(odd) { padding-right: 48px; border-right: 1px solid var(--border); }
-        .sdk-item:nth-child(even) { padding-left: 48px; padding-right: 0; }
+        .sdk-item:nth-child(odd) { padding-right: 64px; border-right: 1px solid var(--border); }
+        .sdk-item:nth-child(even) { padding-left: 64px; padding-right: 0; }
         .sdk-item:nth-last-child(-n+2) { border-bottom: none; }
         .sdk-num {
             font-family: var(--font-display);
-            font-size: 13px;
+            font-size: 15px;
             color: var(--acid);
             font-weight: 800;
             flex-shrink: 0;
-            margin-top: 2px;
+            margin-top: 4px;
         }
         .sdk-title {
-            font-size: 14px;
+            font-size: 20px;
             font-weight: 600;
             color: #fff;
-            margin-bottom: 6px;
+            margin-bottom: 10px;
+            letter-spacing: -0.3px;
         }
         .sdk-desc {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--text-dim);
-            line-height: 1.65;
+            line-height: 1.7;
         }
         @media (max-width: 768px) {
             .sdk-section { padding: 64px 28px; }
@@ -328,7 +329,7 @@
             background: #0a0a0a;
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
-            padding: 72px 0;
+            padding: 40px 0;
         }
         .metrics-inner {
             max-width: 1200px; margin: 0 auto;
@@ -337,7 +338,7 @@
             gap: 0;
         }
         .metric {
-            padding: 0 48px;
+            padding: 0 36px;
             border-right: 1px solid var(--border);
             opacity: 0; transform: translateY(12px);
             transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
@@ -349,13 +350,13 @@
         .metric:nth-child(3) { transition-delay: 160ms; }
         .metric-number {
             font-family: var(--font-display);
-            font-size: clamp(44px, 5vw, 64px);
+            font-size: clamp(28px, 3vw, 40px);
             font-weight: 800; font-style: italic;
-            line-height: 0.9; letter-spacing: -3px;
-            color: #fff; margin-bottom: 10px;
+            line-height: 0.9; letter-spacing: -2px;
+            color: #fff; margin-bottom: 6px;
         }
         .metric-label {
-            font-size: 12px; color: rgba(255,255,255,0.35);
+            font-size: 11px; color: rgba(255,255,255,0.28);
             line-height: 1.5; font-weight: 400;
             max-width: 200px;
         }
