@@ -7,7 +7,7 @@ redirects = []
 [functions."*"]
 
 [build]
-publish = "/Users/ekaterinasum/digital-humans-sber/digital-humans-site"
+publish = "/Users/ekaterinasum/digital-humans-ultimate"
 publishOrigin = "default"
 
 [build.environment]
