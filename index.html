@@ -324,6 +324,56 @@
             .sdk-item:last-child { border-bottom: none; }
         }
 
+        /* TECH SPECS */
+        #tech.sdk-section { padding: 140px 72px; }
+        #tech .sdk-eyebrow { font-size: 11px; letter-spacing: 4px; margin-bottom: 28px; }
+        .tech-title {
+            font-family: var(--font-display);
+            font-size: clamp(40px, 5.2vw, 60px);
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1.03;
+            margin-bottom: 28px;
+            max-width: 20ch;
+        }
+        .tech-lead {
+            font-size: 20px;
+            color: var(--text-dim);
+            line-height: 1.65;
+            max-width: 64ch;
+            margin-bottom: 72px;
+        }
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+        }
+        .spec { background: var(--bg); padding: 52px 44px; }
+        .spec-value {
+            font-family: var(--font-display);
+            font-size: 40px;
+            font-weight: 800;
+            color: var(--acid);
+            letter-spacing: -1px;
+            line-height: 1.05;
+            margin-bottom: 18px;
+        }
+        .spec-label { font-size: 17px; color: var(--text-dim); line-height: 1.55; }
+        #tech .sdk-grid { margin-top: 80px; }
+        #tech .sdk-num { font-size: 19px; }
+        #tech .sdk-title { font-size: 26px; margin-bottom: 14px; }
+        #tech .sdk-desc { font-size: 17px; }
+        #tech .sdk-item { padding-top: 60px; padding-bottom: 60px; }
+        @media (max-width: 768px) {
+            #tech.sdk-section { padding: 72px 28px; }
+            .specs-grid { grid-template-columns: 1fr; }
+            .spec { padding: 32px 26px; }
+            .spec-value { font-size: 34px; }
+            .tech-lead { font-size: 18px; }
+        }
+
         /* CLIENTS SECTION */
         .clients-section {
             padding: 96px 72px;
@@ -606,6 +656,7 @@
     <div class="nav-logo">Digital Humans</div>
     <ul class="nav-links">
         <li><a href="#cases">Кейсы</a></li>
+        <li><a href="#tech">Технологии</a></li>
         <li><a href="#demo">Live Demo</a></li>
     </ul>
 </nav>
@@ -696,7 +747,72 @@
           </button>
         </div>
 
-        <!-- SDK -->
+        <!-- TECH SPECS + SDK -->
+        <section class="sdk-section" id="tech">
+          <div class="sdk-eyebrow">Технологии под капотом</div>
+          <h2 class="tech-title">Наши аватары и Browser Avatar SDK</h2>
+          <p class="tech-lead">Живой talking-аватар рендерится прямо в браузере — без серверной фермы и тяжёлой инфраструктуры. Один npm-пакет, чистый клиентский рендеринг и полный контроль над поведением аватара.</p>
+
+          <div class="specs-grid">
+            <div class="spec">
+              <div class="spec-value">WebGPU / WASM</div>
+              <div class="spec-label">Рендер на стороне клиента, без серверного рендера и видеостриминга</div>
+            </div>
+            <div class="spec">
+              <div class="spec-value">до 1080p</div>
+              <div class="spec-label">Три уровня качества — 480p / 720p / 1080p — под устройство и нагрузку</div>
+            </div>
+            <div class="spec">
+              <div class="spec-value">real-time</div>
+              <div class="spec-label">Синхронизация губ и жестов с PCM-аудио в реальном времени</div>
+            </div>
+            <div class="spec">
+              <div class="spec-value">fp16 / fp32</div>
+              <div class="spec-label">ONNX-модели с выбором точности под производительность</div>
+            </div>
+            <div class="spec">
+              <div class="spec-value">idle + жесты</div>
+              <div class="spec-label">Кастомная разметка анимаций, очередь жестов и idle-циклы</div>
+            </div>
+            <div class="spec">
+              <div class="spec-value">events API</div>
+              <div class="spec-label">События речи, статусы сессии и прогресс загрузки ассетов</div>
+            </div>
+          </div>
+
+          <div class="sdk-grid">
+            <div class="sdk-item">
+              <span class="sdk-num">01</span>
+              <div>
+                <div class="sdk-title">Работает прямо в браузере</div>
+                <p class="sdk-desc">WebGPU или WASM — никакого серверного рендера. Аватар запускается на стороне клиента без тяжёлой инфраструктуры.</p>
+              </div>
+            </div>
+            <div class="sdk-item">
+              <span class="sdk-num">02</span>
+              <div>
+                <div class="sdk-title">Минуты до интеграции</div>
+                <p class="sdk-desc">npm-пакет <code style="font-size:11px;color:var(--acid);background:rgba(200,255,0,0.08);padding:1px 5px;border-radius:3px">@arvrlab/browser-avatar-sdk</code> — несколько строк кода, и аватар готов к работе.</p>
+              </div>
+            </div>
+            <div class="sdk-item">
+              <span class="sdk-num">03</span>
+              <div>
+                <div class="sdk-title">Любой голос — живая мимика</div>
+                <p class="sdk-desc">Передайте PCM-аудио через <code style="font-size:11px;color:var(--acid);background:rgba(200,255,0,0.08);padding:1px 5px;border-radius:3px">speak()</code> — аватар синхронизирует губы и жесты в реальном времени с любым голосовым источником.</p>
+              </div>
+            </div>
+            <div class="sdk-item">
+              <span class="sdk-num">04</span>
+              <div>
+                <div class="sdk-title">Полный контроль поведения</div>
+                <p class="sdk-desc">API для управления анимациями, idle-циклами, очередью жестов и событиями — аватар реагирует на контекст разговора.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- WORLD CASES -->
     <section class="intl-section" id="intl-cases">
       <div class="intl-section-head">
         <h2 class="intl-section-title">Мировые кейсы, которые задают планку</h2>
@@ -794,40 +910,6 @@
         </article>
       </div>
     </section>
-
-        <div class="sdk-section">
-          <div class="sdk-eyebrow">Browser Avatar SDK</div>
-          <div class="sdk-grid">
-            <div class="sdk-item">
-              <span class="sdk-num">01</span>
-              <div>
-                <div class="sdk-title">Работает прямо в браузере</div>
-                <p class="sdk-desc">WebGPU или WASM — никакого серверного рендера. Аватар запускается на стороне клиента без тяжёлой инфраструктуры.</p>
-              </div>
-            </div>
-            <div class="sdk-item">
-              <span class="sdk-num">02</span>
-              <div>
-                <div class="sdk-title">Минуты до интеграции</div>
-                <p class="sdk-desc">npm-пакет <code style="font-size:11px;color:var(--acid);background:rgba(200,255,0,0.08);padding:1px 5px;border-radius:3px">@arvrlab/browser-avatar-sdk</code> — несколько строк кода, и аватар готов к работе.</p>
-              </div>
-            </div>
-            <div class="sdk-item">
-              <span class="sdk-num">03</span>
-              <div>
-                <div class="sdk-title">Любой голос — живая мимика</div>
-                <p class="sdk-desc">Передайте PCM-аудио через <code style="font-size:11px;color:var(--acid);background:rgba(200,255,0,0.08);padding:1px 5px;border-radius:3px">speak()</code> — аватар синхронизирует губы и жесты в реальном времени с любым голосовым источником.</p>
-              </div>
-            </div>
-            <div class="sdk-item">
-              <span class="sdk-num">04</span>
-              <div>
-                <div class="sdk-title">Полный контроль поведения</div>
-                <p class="sdk-desc">API для управления анимациями, idle-циклами, очередью жестов и событиями — аватар реагирует на контекст разговора.</p>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <!-- METRICS -->
         <div class="metrics">
