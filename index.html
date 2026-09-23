@@ -586,141 +586,57 @@
             .next-video { width: min(100%, 56vh); margin: 0 auto; }
         }
 
-        /* SCHOOL — Мурино */
-        .school-section {
-            padding: 120px 72px;
+        /* SCALE — рендер на устройстве пользователя */
+        .scale-section { padding: 120px 72px; border-top: 1px solid var(--border); }
+        .scale-eyebrow {
+            font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+            color: var(--acid); margin-bottom: 28px;
+        }
+        .scale-title {
+            font-family: var(--font-display);
+            font-size: clamp(36px, 4.6vw, 64px);
+            font-weight: 800; letter-spacing: -1.5px; line-height: 1.04;
+            max-width: 22ch; margin-bottom: 32px;
+        }
+        .scale-title em { font-style: italic; color: var(--acid); }
+        .scale-lead { font-size: 19px; color: var(--text-dim); line-height: 1.65; max-width: 64ch; margin-bottom: 64px; }
+        .scale-compare {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+            background: var(--border); border: 1px solid var(--border);
+        }
+        .scale-col { background: var(--bg); padding: 36px 40px; }
+        .scale-col--ours { background: rgba(200,255,0,0.04); }
+        .scale-col-head {
+            font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+            color: var(--text-ghost); margin-bottom: 20px;
+        }
+        .scale-col--ours .scale-col-head { color: var(--acid); }
+        .scale-col ul { list-style: none; }
+        .scale-col li {
+            font-size: 16px; line-height: 1.5; color: rgba(255,255,255,0.45);
+            padding: 12px 0 12px 28px; position: relative;
             border-top: 1px solid var(--border);
         }
-        .school-eyebrow {
-            display: flex; align-items: center; gap: 8px;
-            font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
-            color: var(--text-ghost);
-            margin-bottom: 28px;
+        .scale-col li::before { content: '—'; position: absolute; left: 0; color: rgba(255,255,255,0.25); }
+        .scale-col--ours li { color: #fff; }
+        .scale-col--ours li::before { content: '✓'; color: var(--acid); }
+        .scale-benefits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; margin-top: 72px; }
+        .scale-num {
+            font-family: var(--font-display); font-weight: 800;
+            font-size: clamp(40px, 4vw, 60px); line-height: 1; letter-spacing: -2px;
+            color: var(--acid); margin-bottom: 16px; white-space: nowrap;
         }
-        .school-title {
-            font-family: var(--font-display);
-            font-size: clamp(40px, 5.2vw, 60px);
-            font-weight: 800;
-            letter-spacing: -1.5px;
-            line-height: 1.03;
-            margin-bottom: 24px;
-            max-width: 18ch;
-        }
-        .school-title em { font-style: italic; }
-        .school-lead {
-            font-size: 20px;
-            color: var(--text-dim);
-            line-height: 1.65;
-            max-width: 64ch;
-            margin-bottom: 56px;
-        }
-        .school-shot {
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            overflow: hidden;
-            background: #0a0a0a;
-            line-height: 0;
-        }
-        .school-shot img {
-            width: 100%; height: auto;
-            display: block;
-        }
-        .school-caption {
-            font-size: 13px;
-            color: rgba(255,255,255,0.28);
-            margin-top: 16px;
-        }
-        .school-features {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1px;
-            background: var(--border);
-            border: 1px solid var(--border);
-            margin-top: 56px;
-        }
-        .school-feature { background: var(--bg); padding: 36px 32px; }
-        .school-feature-title {
-            font-size: 17px; font-weight: 600; color: #fff;
-            margin-bottom: 8px; letter-spacing: -0.2px;
-        }
-        .school-feature-desc {
-            font-size: 14px; color: var(--text-dim); line-height: 1.6;
-        }
-
-        /* live stand panel */
-        .stand {
-            margin-top: 56px;
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            background: rgba(255,255,255,0.015);
-            padding: 28px;
-        }
-        .stand-head {
-            display: flex; align-items: flex-start; justify-content: space-between;
-            gap: 20px; flex-wrap: wrap;
-            margin-bottom: 18px;
-        }
-        .stand-title {
-            font-size: 20px; font-weight: 600; color: #fff;
-            letter-spacing: -0.3px; margin-bottom: 4px;
-        }
-        .stand-sub { font-size: 13px; color: var(--text-dim); }
-        .stand-creds {
-            font-size: 13px; color: var(--text-dim);
-            margin-bottom: 20px;
-        }
-        .stand-creds code {
-            font-size: 12px; color: var(--acid);
-            background: rgba(200,255,0,0.08);
-            padding: 2px 7px; border-radius: 4px;
-        }
-        /* до клика — компактная плашка; после загрузки iframe разворачивается в 16:10 */
-        .stand-frame {
-            position: relative;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-            background: #0a0a0a;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            gap: 16px; padding: 48px 32px; text-align: center;
-        }
-        .stand-frame.loaded { aspect-ratio: 16 / 10; padding: 0; }
-        .stand-frame iframe {
-            position: absolute; inset: 0;
-            width: 100%; height: 100%;
-            border: 0; display: block;
-        }
-        .stand-hint {
-            font-size: 13px; color: rgba(255,255,255,0.28);
-            max-width: 46ch; line-height: 1.6;
-        }
-        .link-chip {
-            display: inline-flex; align-items: center; gap: 6px;
-            padding: 11px 16px; border-radius: 10px;
-            text-decoration: none; color: rgba(255,255,255,0.75);
-            border: 1px solid rgba(255,255,255,0.12);
-            background: rgba(255,255,255,0.03);
-            font-size: 13px; font-weight: 500;
-            transition: border-color 180ms var(--ease-out), color 180ms var(--ease-out);
-        }
-        @media (hover: hover) and (pointer: fine) {
-            .link-chip:hover { border-color: rgba(200,255,0,0.5); color: #fff; }
-        }
-
+        .scale-benefit-title { font-size: 17px; font-weight: 500; color: #fff; margin-bottom: 10px; }
+        .scale-benefit-desc { font-size: 14px; color: var(--text-dim); line-height: 1.65; }
         @media (max-width: 900px) {
-            .school-features { grid-template-columns: repeat(2, 1fr); }
+            .scale-benefits { grid-template-columns: 1fr; gap: 40px; }
         }
         @media (max-width: 768px) {
-            .school-section { padding: 72px 28px; }
-            .school-lead { font-size: 18px; margin-bottom: 40px; }
-            .school-features { grid-template-columns: 1fr; margin-top: 40px; }
-            .school-feature { padding: 26px 24px; }
-            /* на телефоне широкий скриншот стенда листается вбок, а не сжимается в кашу */
-            .school-shot { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-            .school-shot img { min-width: 720px; }
-            .stand { padding: 20px; margin-top: 40px; }
-            .stand-frame { aspect-ratio: 4 / 3; padding: 24px; }
+            .scale-section { padding: 72px 24px; }
+            .scale-lead { font-size: 17px; margin-bottom: 40px; }
+            .scale-compare { grid-template-columns: 1fr; }
+            .scale-col { padding: 28px 24px; }
+            .scale-num { font-size: 44px; }
         }
 
     </style>
@@ -731,7 +647,7 @@
     <div class="nav-logo">Digital Humans</div>
     <ul class="nav-links">
         <li><a href="#cases">Кейсы</a></li>
-        <li><a href="#school">Школа</a></li>
+        <li><a href="#scale">Преимущества</a></li>
         <li><a href="#tech">Технологии</a></li>
         <li><a href="#demo">Live Demo</a></li>
     </ul>
@@ -816,72 +732,46 @@
           </div>
         </div>
 
-        <!-- CASE: М.ВИДЕО -->
-        <div class="case">
-          <video autoplay muted loop playsinline>
-            <source src="videos/mvideo-case.mp4" type="video/mp4">
-          </video>
-          <div class="case-overlay">
-            <div class="case-client">Кейс</div>
-            <div class="case-title">М.Видео —<br><em>аватар-продавец.</em></div>
-            <p class="case-desc">Цифровой консультант отвечает на вопросы о товарах, помогает с выбором и оформляет заказ без участия живого сотрудника.</p>
-          </div>
-          <button class="case-sound" onclick="toggleVideoSound(this)" aria-label="Звук">
-            <svg class="icon-muted" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.63 3.63a.996.996 0 000 1.41L7.29 8.7 7 9H4c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1h3l3.29 3.29c.63.63 1.71.18 1.71-.71v-4.17l4.18 4.18c-.49.37-1.02.68-1.6.91-.36.15-.58.53-.58.92 0 .72.73 1.18 1.39.91.8-.31 1.55-.77 2.22-1.31l1.34 1.34a.996.996 0 101.41-1.41L5.05 3.63c-.39-.39-1.02-.39-1.42 0zM19 12c0 .82-.15 1.61-.41 2.34l1.53 1.53c.56-1.17.88-2.48.88-3.87 0-3.83-2.4-7.11-5.78-8.4-.59-.23-1.22.23-1.22.86v.19c0 .38.25.71.61.85C17.18 6.54 19 9.06 19 12zm-8.71-6.29l-.17.17L12 7.76V6.41c0-.89-1.08-1.34-1.71-.71zM16.5 12A4.5 4.5 0 0014 7.97v1.79l2.48 2.48c.01-.08.02-.16.02-.24z"/></svg>
-            <svg class="icon-unmuted" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-          </button>
-        </div>
+        <!-- SCALE: РЕНДЕР НА УСТРОЙСТВЕ -->
+        <section class="scale-section" id="scale">
+          <div class="scale-eyebrow">Продуктовое преимущество</div>
+          <h2 class="scale-title">Аватар рендерится на&nbsp;устройстве пользователя.<br><em>Масштабирование не&nbsp;требует новых серверов.</em></h2>
+          <p class="scale-lead">Типичная платформа цифровых аватаров генерирует видео на серверных GPU и стримит его каждому зрителю. Каждый новый одновременный диалог означает ещё одну видеокарту в дата-центре. Мы перенесли рендер на сторону клиента: браузер собирает изображение сам, а наши серверы отвечают только за смысл разговора.</p>
 
-        <!-- SCHOOL: МУРИНО -->
-        <section class="school-section" id="school">
-          <div class="school-eyebrow">
-            <span class="live-dot"></span>
-            Работает прямо сейчас · Школа Мурино
-          </div>
-          <h2 class="school-title">Сберкот <em>в холле школы.</em></h2>
-          <p class="school-lead">Интерактивный стенд в холле первого этажа. Мурчик отвечает голосом или по кнопке: где кабинет, что сегодня в столовой, кто ведёт математику, что в афише. Аватар крутится на CPU — без видеокарты, на обычном школьном компьютере.</p>
-
-          <div class="school-shot">
-            <img src="images/murino.jpg" alt="Интерактивный стенд Сберкота в МОБУ «Муринская СОШ № 8»" loading="lazy">
-          </div>
-          <div class="school-caption">г. Мурино, Всеволожский район · стенд в холле 1 этажа</div>
-
-          <div class="school-features">
-            <div class="school-feature">
-              <div class="school-feature-title">Расписание и кабинеты</div>
-              <p class="school-feature-desc">«Где кабинет 214?» — Мурчик показывает и объясняет дорогу.</p>
+          <div class="scale-compare">
+            <div class="scale-col">
+              <div class="scale-col-head">Серверный рендер</div>
+              <ul>
+                <li>GPU в дата-центре на каждую одновременную сессию</li>
+                <li>Видеопоток к каждому пользователю</li>
+                <li>Затраты на инфраструктуру растут вместе с аудиторией</li>
+              </ul>
             </div>
-            <div class="school-feature">
-              <div class="school-feature-title">Меню столовой</div>
-              <p class="school-feature-desc">Завтрак и обед на сегодня, плюс сбор обратной связи по еде.</p>
-            </div>
-            <div class="school-feature">
-              <div class="school-feature-title">Лига классов</div>
-              <p class="school-feature-desc">Вопрос дня и живой счёт между классами прямо на экране.</p>
-            </div>
-            <div class="school-feature">
-              <div class="school-feature-title">Афиша школы</div>
-              <p class="school-feature-desc">Ближайшие события — фотодень, квесты, праздники.</p>
+            <div class="scale-col scale-col--ours">
+              <div class="scale-col-head">Digital Humans · рендер на устройстве</div>
+              <ul>
+                <li>Серверные GPU для рендера аватара не нужны</li>
+                <li>По сети идут только звук и команды анимации</li>
+                <li>Стоимость новой сессии — только обработка диалога</li>
+              </ul>
             </div>
           </div>
 
-          <div class="stand">
-            <div class="stand-head">
-              <div>
-                <div class="stand-title">Живой стенд</div>
-                <div class="stand-sub">school.digitalavatars.ru · обновляется в реальном времени</div>
-              </div>
-              <a class="link-chip" href="https://school.digitalavatars.ru/" target="_blank" rel="noopener">Открыть в новой вкладке ↗</a>
+          <div class="scale-benefits">
+            <div class="scale-benefit">
+              <div class="scale-num">0</div>
+              <div class="scale-benefit-title">серверных GPU под рендер</div>
+              <p class="scale-benefit-desc">Изображение собирает устройство пользователя через WebGPU или WASM. Рост аудитории не превращается в закупку видеокарт.</p>
             </div>
-
-            <div class="stand-creds">Доступ к стенду: логин <code>space</code> · пароль <code>Fuu0thae9ilu</code></div>
-
-            <div class="stand-frame" id="stand-frame">
-              <button class="btn btn-primary" id="stand-load" type="button">Показать живой стенд</button>
-              <div class="stand-hint">Браузер спросит логин и пароль — они указаны выше. Если во фрейме не пустило, сначала откройте стенд в новой вкладке, введите доступ и вернитесь сюда.</div>
-              <noscript>
-                <a class="link-chip" href="https://school.digitalavatars.ru/" target="_blank" rel="noopener">Открыть стенд ↗</a>
-              </noscript>
+            <div class="scale-benefit">
+              <div class="scale-num">100%</div>
+              <div class="scale-benefit-title">рендера на стороне клиента</div>
+              <p class="scale-benefit-desc">Серверы обрабатывают только речь и ответы языковой модели. Поэтому каждая новая сессия обходится дёшево, а запуск на тысячи пользователей не требует расширять инфраструктуру рендера.</p>
+            </div>
+            <div class="scale-benefit">
+              <div class="scale-num">480p–1080p</div>
+              <div class="scale-benefit-title">под любое устройство</div>
+              <p class="scale-benefit-desc">Три уровня качества подстраиваются под железо: от смартфона и офисного ПК до выставочного стенда. Отдельная видеокарта не нужна.</p>
             </div>
           </div>
         </section>
@@ -1035,23 +925,6 @@
       });
     }, { threshold: 0.2 });
     document.querySelectorAll('.metric').forEach(m => metricObs.observe(m));
-
-    // Живой стенд школы грузится по клику: пока не нажали, во фрейме стоит кнопка,
-    // а не белая страница «401 Authorization Required».
-    (function() {
-      const btn = document.getElementById('stand-load');
-      if (!btn) return;
-      btn.addEventListener('click', function() {
-        const box = document.getElementById('stand-frame');
-        const frame = document.createElement('iframe');
-        frame.src = 'https://school.digitalavatars.ru/';
-        frame.title = 'Интерактивный стенд Школы Мурино';
-        frame.allow = 'autoplay; microphone';
-        box.classList.add('loaded');
-        box.textContent = '';
-        box.appendChild(frame);
-      });
-    })();
 
     // Hero video sequence: appear → pause 5s on last frame → disappear → repeat
     (function() {
