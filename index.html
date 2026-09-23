@@ -599,6 +599,7 @@
             max-width: 22ch; margin-bottom: 32px;
         }
         .scale-title em { font-style: italic; color: var(--acid); }
+        .scale-title-sub { display: inline-block; margin-top: 12px; font-size: 0.62em; line-height: 1.12; letter-spacing: -0.5px; max-width: 30ch; }
         .scale-lead { font-size: 19px; color: var(--text-dim); line-height: 1.65; max-width: 64ch; margin-bottom: 64px; }
         .scale-compare {
             display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
@@ -735,7 +736,7 @@
         <!-- SCALE: РЕНДЕР НА УСТРОЙСТВЕ -->
         <section class="scale-section" id="scale">
           <div class="scale-eyebrow">Продуктовое преимущество</div>
-          <h2 class="scale-title">Аватар рендерится на&nbsp;устройстве пользователя.<br><em>Масштабирование не&nbsp;требует новых серверов.</em></h2>
+          <h2 class="scale-title">Аватар рендерится на&nbsp;устройстве пользователя.<br><em class="scale-title-sub">Масштабирование и&nbsp;новые поверхности не&nbsp;требуют дорогих доработок, но&nbsp;могут улучшить пользовательский путь.</em></h2>
           <p class="scale-lead">Типичная платформа цифровых аватаров генерирует видео на серверных GPU и стримит его каждому зрителю. Каждый новый одновременный диалог означает ещё одну видеокарту в дата-центре. Мы перенесли рендер на сторону клиента: браузер собирает изображение сам, а наши серверы отвечают только за смысл разговора.</p>
 
           <div class="scale-compare">
