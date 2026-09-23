@@ -2,7 +2,7 @@
 
 Кинематографичный одностраничный сайт продукта **Digital Humans · Sber** — цифровые аватары для бизнеса, которые говорят с клиентом голосом, понимают контекст и работают прямо в браузере через SDK.
 
-**Репозиторий приватный.**
+Рабочая копия [digital-humans-ultimate](https://github.com/essesum/digital-humans-ultimate) для доработки. Публикуется через GitHub Pages.
 
 ## Зачем это
 
@@ -13,8 +13,8 @@
 
 ## Live
 
-- **Прод:** https://digital-humans-sber.netlify.app
-- Netlify project: `digital-humans-sber` (siteId `d5ff387c-b939-4b99-9c5a-22c1a6ae3356`)
+- **Эта копия:** https://essesum.github.io/digital-humans-sber-v2/ (GitHub Pages, обновляется от push в `main`)
+- Оригинал: https://digital-humans-sber.netlify.app
 
 ## Структура страницы
 
