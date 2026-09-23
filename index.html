@@ -525,6 +525,67 @@
           }
         }
 
+        /* CASE: AI EXPERT — видео и фото на половине экрана, цифры на другой */
+        .case--expo, .case--next { display: flex; height: auto; min-height: min(58vw, 700px); }
+        .expo-media {
+            width: 50%; flex-shrink: 0;
+            display: flex; flex-direction: column; gap: 2px;
+            background: var(--bg);
+        }
+        .expo-video { position: relative; flex: 1; min-height: 0; aspect-ratio: 16 / 9; overflow: hidden; background: #000; }
+        .expo-photos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+        .expo-photos img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; display: block; }
+        .expo-info, .next-info {
+            flex: 1; min-width: 0;
+            display: flex; flex-direction: column; justify-content: center;
+            padding: 56px;
+            background: var(--bg);
+            opacity: 0; transform: translateY(16px);
+            transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out);
+        }
+        .case.revealed .expo-info, .case.revealed .next-info { opacity: 1; transform: translateY(0); }
+        .expo-info .case-title, .next-info .case-title { margin-bottom: 40px; }
+        .expo-stats { display: flex; flex-direction: column; border-top: 1px solid var(--border); }
+        .expo-stat {
+            display: grid; grid-template-columns: calc(clamp(40px, 4.4vw, 64px) * 2.8) 1fr; align-items: baseline; gap: 16px;
+            padding: 20px 0; border-bottom: 1px solid var(--border);
+        }
+        .expo-num {
+            font-family: var(--font-display); font-weight: 800;
+            font-size: clamp(40px, 4.4vw, 64px); line-height: 1; letter-spacing: -2px;
+            color: var(--acid);
+        }
+        .expo-label { font-size: 17px; color: rgba(255,255,255,0.7); line-height: 1.4; }
+
+        /* NEXT STEPS — вертикальное видео 9:16 и текст напротив */
+        .next-video {
+            position: relative; flex-shrink: 0;
+            width: calc(min(58vw, 700px) * 9 / 16);
+            aspect-ratio: 9 / 16;
+            overflow: hidden; background: #000;
+        }
+        .next-list { list-style: none; counter-reset: step; border-top: 1px solid var(--border); max-width: 560px; }
+        .next-list li {
+            counter-increment: step;
+            display: flex; gap: 20px;
+            padding: 20px 0; border-bottom: 1px solid var(--border);
+            font-size: 17px; color: rgba(255,255,255,0.7); line-height: 1.5;
+        }
+        .next-list li::before {
+            content: counter(step, decimal-leading-zero);
+            font-size: 12px; letter-spacing: 2px; color: var(--acid);
+            padding-top: 4px; flex-shrink: 0; width: 2.4em; font-variant-numeric: tabular-nums;
+        }
+
+        @media (max-width: 768px) {
+            .case--expo, .case--next { flex-direction: column; height: auto; min-height: 0; }
+            .expo-media { width: 100%; }
+            .expo-video { flex: none; }
+            .expo-info, .next-info { padding: 40px 24px 48px; }
+            .expo-label, .next-list li { font-size: 15px; }
+            .next-video { width: min(100%, 56vh); margin: 0 auto; }
+        }
+
         /* SCHOOL — Мурино */
         .school-section {
             padding: 120px 72px;
@@ -707,42 +768,51 @@
           </div>
         </section>
 
-        <!-- CASE: ГИГАПОМОЩНИК -->
-        <div class="case" id="cases">
-          <video autoplay muted loop playsinline>
-            <source src="videos/giga-assistant-3.mp4" type="video/mp4">
-          </video>
-          <div class="case-overlay">
-            <div class="case-client">Кейс</div>
-            <div class="case-title">ГигаПомощник —<br><em>в офисе банка.</em></div>
-            <p class="case-desc">Аватар отвечает голосом в реальном времени, показывает на виджеты и понимает контекст разговора.</p>
-          </div>
-          <button class="case-sound" onclick="toggleVideoSound(this)" aria-label="Звук">
+        <!-- CASE: AI EXPERT НА ВЫСТАВКАХ -->
+        <div class="case case--expo" id="cases">
+          <div class="expo-media">
+            <div class="expo-video">
+              <video autoplay muted loop playsinline poster="images/expo-ai-expert-poster.jpg">
+                <source src="videos/expo-ai-expert.mp4" type="video/mp4">
+              </video>
+              <button class="case-sound" onclick="toggleVideoSound(this)" aria-label="Звук">
             <svg class="icon-muted" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.63 3.63a.996.996 0 000 1.41L7.29 8.7 7 9H4c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1h3l3.29 3.29c.63.63 1.71.18 1.71-.71v-4.17l4.18 4.18c-.49.37-1.02.68-1.6.91-.36.15-.58.53-.58.92 0 .72.73 1.18 1.39.91.8-.31 1.55-.77 2.22-1.31l1.34 1.34a.996.996 0 101.41-1.41L5.05 3.63c-.39-.39-1.02-.39-1.42 0zM19 12c0 .82-.15 1.61-.41 2.34l1.53 1.53c.56-1.17.88-2.48.88-3.87 0-3.83-2.4-7.11-5.78-8.4-.59-.23-1.22.23-1.22.86v.19c0 .38.25.71.61.85C17.18 6.54 19 9.06 19 12zm-8.71-6.29l-.17.17L12 7.76V6.41c0-.89-1.08-1.34-1.71-.71zM16.5 12A4.5 4.5 0 0014 7.97v1.79l2.48 2.48c.01-.08.02-.16.02-.24z"/></svg>
             <svg class="icon-unmuted" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
           </button>
+            </div>
+            <div class="expo-photos">
+              <img src="images/expo-1.jpg" alt="Посетители говорят с аватаром AI Expert на стенде Sber India" loading="lazy">
+              <img src="images/expo-2.jpg" alt="Разговор у стенда AI Expert" loading="lazy">
+              <img src="images/expo-3.jpg" alt="Посетительницы сканируют QR-код на экране AI Expert" loading="lazy">
+            </div>
+          </div>
+          <div class="expo-info">
+            <div class="case-client">Кейс · Sber India</div>
+            <div class="case-title">AI Expert —<br><em>на выставках.</em></div>
+            <div class="expo-stats">
+              <div class="expo-stat"><span class="expo-num">2</span><span class="expo-label">выставки</span></div>
+              <div class="expo-stat"><span class="expo-num">100+</span><span class="expo-label">ежедневных диалогов</span></div>
+              <div class="expo-stat"><span class="expo-num">50+</span><span class="expo-label">отсканированных визиток</span></div>
+            </div>
+          </div>
         </div>
 
-        <!-- CASE: СБЕРПЕРВЫЙ -->
-        <div class="case case--split">
-          <div class="case-main">
-            <video autoplay muted loop playsinline>
-              <source src="videos/sberperv-irina.mp4" type="video/mp4">
+        <!-- NEXT STEPS -->
+        <div class="case case--next">
+          <div class="next-video">
+            <video autoplay muted loop playsinline poster="images/ai-expert-portrait-poster.jpg">
+              <source src="videos/ai-expert-portrait.mp4" type="video/mp4">
             </video>
-            <div class="case-overlay">
-              <div class="case-client">Кейс</div>
-              <div class="case-title">СберПервый —<br><em>премиальный банкинг.</em></div>
-              <p class="case-desc">Персональный аватар-советник для клиентов СберПервого. Консультирует по продуктам, сопровождает сделки, всегда на связи.</p>
-            </div>
-            <button class="case-sound" onclick="toggleVideoSound(this)" aria-label="Звук">
-              <svg class="icon-muted" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.63 3.63a.996.996 0 000 1.41L7.29 8.7 7 9H4c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1h3l3.29 3.29c.63.63 1.71.18 1.71-.71v-4.17l4.18 4.18c-.49.37-1.02.68-1.6.91-.36.15-.58.53-.58.92 0 .72.73 1.18 1.39.91.8-.31 1.55-.77 2.22-1.31l1.34 1.34a.996.996 0 101.41-1.41L5.05 3.63c-.39-.39-1.02-.39-1.42 0zM19 12c0 .82-.15 1.61-.41 2.34l1.53 1.53c.56-1.17.88-2.48.88-3.87 0-3.83-2.4-7.11-5.78-8.4-.59-.23-1.22.23-1.22.86v.19c0 .38.25.71.61.85C17.18 6.54 19 9.06 19 12zm-8.71-6.29l-.17.17L12 7.76V6.41c0-.89-1.08-1.34-1.71-.71zM16.5 12A4.5 4.5 0 0014 7.97v1.79l2.48 2.48c.01-.08.02-.16.02-.24z"/></svg>
-              <svg class="icon-unmuted" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-            </button>
           </div>
-          <div class="case-portrait">
-            <video muted loop playsinline>
-              <source src="videos/sberperv-mvp-sb1.mp4" type="video/mp4">
-            </video>
+          <div class="next-info">
+            <div class="case-client">Дальше</div>
+            <div class="case-title">Наши<br><em>следующие шаги.</em></div>
+            <ol class="next-list">
+              <li>Доработать UX, чтобы сессия начиналась без участия пользователя.</li>
+              <li>Улучшить распознавание в шумных помещениях или отказаться от диалога через микрофон.</li>
+              <li>Разместить аватара в офисе и на сайте.</li>
+              <li>Перевести на хинди.</li>
+            </ol>
           </div>
         </div>
 
